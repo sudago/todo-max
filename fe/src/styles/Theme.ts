@@ -1,16 +1,16 @@
 export const theme = {
   fonts: {
-    displayB24: "700 24px 'Pretendard', sans-serif;",
-    displayB16: "700 16px 'Pretendard', sans-serif;",
-    displayB14: "700 14px 'Pretendard', sans-serif;",
-    displayB12: "700 12px 'Pretendard', sans-serif;",
-    displayM16: "500 16px 'Pretendard', sans-serif;",
-    displayM14: "500 14px 'Pretendard', sans-serif;",
-    displayM12: "500 12px 'Pretendard', sans-serif;",
-    selectedB16: "700 16px 'Pretendard', sans-serif;",
-    selectedB14: "700 14px 'Pretendard', sans-serif;",
-    availableM16: "500 16px 'Pretendard', sans-serif;",
-    availableM14: "500 14px 'Pretendard', sans-serif;",
+    displayB24: "700 24px 'Pretendard Variable', Pretendard",
+    displayB16: "700 16px 'Pretendard Variable', Pretendard",
+    displayB14: "700 14px 'Pretendard Variable', Pretendard",
+    displayB12: "700 12px 'Pretendard Variable', Pretendard",
+    displayM16: "500 16px/22px 'Pretendard Variable', Pretendard",
+    displayM14: "500 14px 'Pretendard Variable', Pretendard",
+    displayM12: "500 12px 'Pretendard Variable', Pretendard",
+    selectedB16: "700 16px 'Pretendard Variable', Pretendard",
+    selectedB14: "700 14px 'Pretendard Variable', Pretendard",
+    availableM16: "500 16px/22px 'Pretendard Variable', Pretendard",
+    availableM14: "500 14px 'Pretendard Variable', Pretendard",
   },
 
   colors: {
