@@ -7,6 +7,7 @@ import { Button } from './components/buttons/Button';
 import { ActionHistory } from './components/ActionHistory';
 import { Dummy } from './components/Dummy';
 import { DummyTwo } from './components/DummyTwo';
+import { ActionHistory } from './components/ActionHistory';
 
 function App() {
   useEffect(() => {
@@ -20,9 +21,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <HeaderLayout>
-        <HeaderTitle />
-        <Button variant="ghost" pattern="icon-only" icon="history" />
-        {/* <ActionHistory /> */}
+        <ActionHistory />
       </HeaderLayout>
       <MainLayout></MainLayout>
     </ThemeProvider>
