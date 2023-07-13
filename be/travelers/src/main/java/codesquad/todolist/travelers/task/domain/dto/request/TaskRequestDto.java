@@ -1,4 +1,4 @@
-package codesquad.todolist.travelers.task.domain.dto;
+package codesquad.todolist.travelers.task.domain.dto.request;
 
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import java.time.LocalDateTime;
