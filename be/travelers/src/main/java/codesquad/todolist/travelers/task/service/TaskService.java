@@ -1,5 +1,6 @@
 package codesquad.todolist.travelers.task.service;
 
+import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
@@ -32,6 +33,10 @@ public class TaskService {
 
     public void updateTask(final Long taskId, final TaskUpdateRequestDto task) {
         taskRepository.updateBy(taskId, task.toEntity());
+    }
+
+    public void updateTaskByProcess(final TaskProcessIdRequestDto taskProcessIdRequestDto, final Long taskId) {
+        taskRepository.updateTaskBy(taskProcessIdRequestDto.getProcessId(), taskId);
     }
 
     public List<ProcessResponseDto> getProcesses() {
