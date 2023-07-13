@@ -1,41 +1,115 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ActionListEmpty } from './ActionListEmpty';
 import { ActionListItem } from './ActionListItem';
-import React from 'react';
 import { Button } from '../buttons/Button';
+import { Modal } from '../modal/Modal';
+
+type History = {
+  title: string;
+  from: string;
+  to: string;
+  action: string;
+  createdTime: string;
+  userName: string;
+  imageUrl: string;
+};
 
 export const ActionList = () => {
-  // const isListEmpty = data.length === 0;
-  const isListEmpty = false;
+  const [isVisible, setIsVisible] = useState(false);
+  const [historyData, setHistoryData] = useState<History[] | null>(null);
+
+  const fetchInitialData = async () => {
+    const response = await fetch('http://52.79.68.54:8080/history');
+    const data = await response.json();
+    console.log(data);
+    setHistoryData(data.message);
+  };
+
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  if (historyData === null) {
+    return <div>Loading...</div>;
+  }
+
+  const isListEmpty = historyData.length === 0;
+
+  const onClose = () => {
+    setIsVisible((prevVisible) => !prevVisible);
+  };
+
+  const onClick = async () => {
+    console.log('삭제~');
+    const response = await fetch('http://52.79.68.54:8080/history', {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    setHistoryData([]);
+    setIsVisible((prevVisible) => !prevVisible);
+  };
 
   return (
-    <ActionListLayout>
-      {isListEmpty ? (
-        <ActionListEmpty />
-      ) : (
-        <>
-          {actionHistory.message.map((item: any, index: number) => (
-            <React.Fragment key={item.title}>
-              <ActionListItem
-                title={item.title}
-                from={item.from}
-                to={item.to}
-                action={item.action}
-                createdTime={item.createdTime}
-                userName={item.userName}
-                imageUrl={item.imageUrl}
+    <>
+      <ActionListLayout>
+        {isListEmpty ? (
+          <ActionListEmpty />
+        ) : (
+          <>
+            {historyData.map((item: any, index: number) => (
+              <React.Fragment key={index}>
+                <ActionListItem
+                  title={item.title}
+                  from={item.from}
+                  to={item.to}
+                  action={item.action}
+                  createdTime={item.createdTime}
+                  userName={item.userName}
+                  imageUrl={item.imageUrl}
+                />
+                {index !== historyData.length - 1 && (
+                  <DividingLineLayout></DividingLineLayout>
+                )}
+              </React.Fragment>
+            ))}
+            {historyData.map((item: any, index: number) => (
+              <React.Fragment key={index}>
+                <ActionListItem
+                  title={item.title}
+                  from={item.from}
+                  to={item.to}
+                  action={item.action}
+                  createdTime={item.createdTime}
+                  userName={item.userName}
+                  imageUrl={item.imageUrl}
+                />
+                {index !== historyData.length - 1 && (
+                  <DividingLineLayout></DividingLineLayout>
+                )}
+              </React.Fragment>
+            ))}
+            <ButtonLayout>
+              <Button
+                variant="ghost"
+                pattern="text-only"
+                text="기록 전체 삭제"
+                onClick={onClose}
               />
-              {index !== actionHistory.message.length - 1 && (
-                <StyledDividingLine></StyledDividingLine>
-              )}
-            </React.Fragment>
-          ))}
-          <ButtonLayout>
-            <Button variant="ghost" pattern="text-only" text="기록 전체 삭제" />
-          </ButtonLayout>
-        </>
+            </ButtonLayout>
+          </>
+        )}
+      </ActionListLayout>
+      {isVisible && (
+        <Modal
+          alertText="모든 사용자 활동 기록을 삭제할까요?"
+          onClose={onClose}
+          onClick={onClick}
+        />
       )}
-    </ActionListLayout>
+    </>
   );
 };
 
@@ -43,7 +117,6 @@ const ActionListLayout = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: 350px;
 `;
 
@@ -54,54 +127,8 @@ const ButtonLayout = styled.div`
   padding: 8px 16px;
 `;
 
-const StyledDividingLine = styled.div`
+const DividingLineLayout = styled.div`
   width: 100%;
   height: 1px;
   background-color: ${({ theme: { colors } }) => colors.borderDefault};
 `;
-
-const actionHistory = {
-  statusCode: 200,
-  message: [
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고있는 일',
-      to: '해야할 일',
-      action: '이동',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: 'GitHub 공부하기',
-      from: '',
-      to: '',
-      action: '변경',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고 있는 일',
-      to: '',
-      action: '등록',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고 있는 일',
-      to: '',
-      action: '삭제',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-  ],
-};
