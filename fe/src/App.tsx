@@ -1,28 +1,25 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
+
+import GlobalStyles from './styles/GlobalStyles.ts';
+import { ColumnList } from './components/main/ColumnList';
 import { Header } from './components/header/Header';
 
 function App() {
-  useEffect(() => {
-    fetch('http://52.79.68.54:8080/categories')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <Header />
-      <MainLayout></MainLayout>
+      <MainLayout>
+        <ColumnList />
+      </MainLayout>
     </ThemeProvider>
   );
 }
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
-  height: 960px;
   background-color: ${(props) => props.theme.colors.surfaceAlt};
 `;
 
