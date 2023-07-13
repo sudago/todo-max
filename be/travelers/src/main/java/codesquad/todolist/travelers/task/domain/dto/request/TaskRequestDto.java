@@ -20,8 +20,7 @@ public class TaskRequestDto {
     }
 
     public Task toEntity() {
-        // "web"으로 고정
-        return new Task(null, title, contents, platform, LocalDateTime.now().toString(), processId);
+        return new Task(null, title, contents, platform, LocalDateTime.now(), processId);
     }
 
     public String getTitle() {
