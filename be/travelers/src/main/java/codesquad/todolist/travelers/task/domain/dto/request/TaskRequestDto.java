@@ -1,4 +1,4 @@
-package codesquad.todolist.travelers.task.domain.dto;
+package codesquad.todolist.travelers.task.domain.dto.request;
 
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import java.time.LocalDateTime;
@@ -20,8 +20,7 @@ public class TaskRequestDto {
     }
 
     public Task toEntity() {
-        // "web"으로 고정
-        return new Task(null, title, contents, platform, LocalDateTime.now().toString(), processId);
+        return new Task(null, title, contents, platform, LocalDateTime.now(), processId);
     }
 
     public String getTitle() {

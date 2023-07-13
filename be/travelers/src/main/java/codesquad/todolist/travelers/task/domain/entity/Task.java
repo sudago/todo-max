@@ -1,15 +1,17 @@
 package codesquad.todolist.travelers.task.domain.entity;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private Long taskId;
     private String title;
     private String contents;
     private String platform;
-    private String createdTime;
+    private LocalDateTime createdTime;
     private Long processId;
 
     public Task(final Long taskId, final String title, final String contents, final String platform,
-                final String createdTime,
+                final LocalDateTime createdTime,
                 final Long processId) {
         this.taskId = taskId;
         this.title = title;
@@ -35,7 +37,7 @@ public class Task {
         return platform;
     }
 
-    public String getCreatedTime() {
+    public LocalDateTime getCreatedTime() {
         return createdTime;
     }
 

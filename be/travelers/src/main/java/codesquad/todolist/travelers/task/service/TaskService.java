@@ -1,8 +1,8 @@
 package codesquad.todolist.travelers.task.service;
 
-import codesquad.todolist.travelers.task.domain.dto.ProcessResponseDto;
-import codesquad.todolist.travelers.task.domain.dto.TaskRequestDto;
-import codesquad.todolist.travelers.task.domain.dto.TaskResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Process;
 import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
 import java.util.ArrayList;
@@ -22,6 +22,10 @@ public class TaskService {
 
     public Long createTask(final TaskRequestDto taskRequestDto) {
         return taskRepository.save(taskRequestDto.toEntity());
+    }
+
+    public void deleteTask(final Long taskId) {
+        taskRepository.deleteBy(taskId);
     }
 
     public List<ProcessResponseDto> getProcesses() {
