@@ -1,14 +1,15 @@
 package codesquad.todolist.travelers.task.controller;
 
 import codesquad.todolist.travelers.global.ApiResponse;
-import codesquad.todolist.travelers.task.domain.dto.ProcessResponseDto;
-import codesquad.todolist.travelers.task.domain.dto.ResponseDto;
-import codesquad.todolist.travelers.task.domain.dto.TaskRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.service.TaskService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,24 +22,20 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // TODO: StatusCode 생성
     @GetMapping("/")
-    public ResponseEntity<List<ProcessResponseDto>> get() {
+    public ResponseEntity<ApiResponse<?>> get() {
         List<ProcessResponseDto> processes = taskService.getProcesses();
 
-        return ResponseEntity.ok().body(processes);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(ApiResponse.success(StatusCode.ORDER_SUCCESS.getCustomStatus(), processes));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponse.success("200", processes));
     }
 
-    // TODO: StatusCode 생성
     @PostMapping("/task")
-    public ResponseEntity<Long> add(@RequestBody final TaskRequestDto taskRequestDto) {
+    public ResponseEntity<ApiResponse<?>> add(@RequestBody final TaskRequestDto taskRequestDto) {
         Long taskId = taskService.createTask(taskRequestDto);
 
-        return ResponseEntity.ok().body(taskId);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(ApiResponse.success(StatusCode.ORDER_SUCCESS.getCustomStatus(), taskId));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponse.success("200", taskId));
     }
 
     @DeleteMapping("/task/{taskId}")
