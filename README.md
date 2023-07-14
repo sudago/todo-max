@@ -1,13 +1,5 @@
-# todo-max
-
-
-| team | members                                        | repository                                       |
-| ---- | ---------------------------------------------- | ------------------------------------------------ |
-| 1    |                                                |                                                  |
-| 2    |                                                |                                                  |
-| 3    |  |  |
-| 4    |  |  |
-| 5    |  |  |
-| 6    |  |  |
-
-* 팀 정보를 업데이트해서 main 브랜치로 PR 보내 주세요.
+## 🧑🏻‍💻팀원 소개
+|                                                       프론트엔드                                                       |                                                      프론트엔드                                                       |                                                       백엔드                                                       |                                                       백엔드                                                       |                                                         백엔드                                                         |                                                               백엔드                                                               |
+|:-----------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|
+| <a href="https://github.com/gunoc"><img src = "https://avatars.githubusercontent.com/gunoc" width="120px;"> | <a href="https://github.com/lolWK"><img src = "https://avatars.githubusercontent.com/lolWK" width="120px;">  | <a href="https://github.com/chunghye98"><img src = "https://avatars.githubusercontent.com/chunghye98" width="120px;"> | <a href="https://github.com/won4885"><img src = "https://avatars.githubusercontent.com/won4885" width="120px;"> | <a href="https://github.com/sudago"><img src = "https://avatars.githubusercontent.com/sudago" width="120px;"> | <a href="https://github.com/CDBchan"><img src = "https://avatars.githubusercontent.com/CDBchan" width="120px;"> |                                         |                                         |
+|                                     [**푸반**](https://github.com/gunoc)                                      |                                       [**아티**](https://github.com/lolWK)                                       |                                     [**시오**](https://github.com/chunghye98)                                     |                                     [**Sully**](https://github.com/won4885)                                     |                                      [**지안**](https://github.com/sudago)                                      |                                         [**Charile**](https://github.com/CDBchan)                                          |
