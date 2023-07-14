@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Card } from '../card/Card';
+import { AddModeCard } from './AddModeCard';
 
-type Task = {
+type TaskType = {
   taskId: number;
   title: string;
   contents: string;
@@ -9,22 +10,41 @@ type Task = {
 };
 
 type CardProps = {
-  tasks: Array<Task>;
+  processId: number;
+  tasks: TaskType[];
+  isAddMode: boolean;
+  onCancel: () => void;
+  onNewTask: (newTask: AddTaskType) => void;
 };
 
-export const CardList: React.FC<CardProps> = ({ tasks }) => {
+type AddTaskType = TaskType & { processId: number };
+
+export const CardList: React.FC<CardProps> = ({
+  tasks,
+  isAddMode,
+  processId,
+  onCancel,
+  onNewTask,
+}) => {
   console.log(tasks);
 
   return (
     <CardListLayout>
-      {tasks.map((item: Task) => (
+      {isAddMode && (
+        <AddModeCard
+          processId={processId}
+          onCancel={onCancel}
+          onNewTask={onNewTask}
+        />
+      )}
+      {tasks.map((item: TaskType) => (
         <Card
           mode="default"
           key={item.taskId}
           title={item.title}
           contents={item.contents}
           platform={item.platform}
-        ></Card>
+        />
       ))}
     </CardListLayout>
   );
