@@ -5,6 +5,7 @@ import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequest
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
 import codesquad.todolist.travelers.task.service.TaskService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -35,10 +36,10 @@ public class TaskController {
 
     @PostMapping("/task")
     public ResponseEntity<ApiResponse<?>> add(@RequestBody final TaskRequestDto taskRequestDto) {
-        Long taskId = taskService.createTask(taskRequestDto);
+        TaskPostResponseDto task = taskService.createTask(taskRequestDto);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success("200", taskId));
+                .body(ApiResponse.success("200", task));
     }
 
     @DeleteMapping("/task/{taskId}")
