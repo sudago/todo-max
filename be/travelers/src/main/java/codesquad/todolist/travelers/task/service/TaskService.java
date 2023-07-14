@@ -4,6 +4,7 @@ import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequest
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Process;
 import codesquad.todolist.travelers.task.domain.entity.Task;
@@ -23,8 +24,11 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public Long createTask(final TaskRequestDto taskRequestDto) {
-        return taskRepository.save(taskRequestDto.toEntity());
+    public TaskPostResponseDto createTask(final TaskRequestDto taskRequestDto) {
+        Task task = taskRequestDto.toEntity();
+        Long taskId = taskRepository.save(task);
+
+        return new TaskPostResponseDto(task, taskId);
     }
 
     public void deleteTask(final Long taskId) {
