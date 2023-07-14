@@ -47,6 +47,34 @@ const handlers = [
     return res(ctx.status(200), ctx.json(actionHistory));
   }),
 
+  rest.delete('http://52.79.68.54:8080/task/1', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        statusCode: 200,
+        message: '카드1 삭제 성공',
+      }),
+    );
+  }),
+  rest.delete('http://52.79.68.54:8080/task/2', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        statusCode: 200,
+        message: '카드2 삭제 성공',
+      }),
+    );
+  }),
+  rest.delete('http://52.79.68.54:8080/task/3', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        statusCode: 200,
+        message: '카드3 삭제 성공',
+      }),
+    );
+  }),
+
   // rest.get('http://52.79.68.54:8080/recipe', (req, res, ctx) => {
   //   return res(ctx.status(200), ctx.json(recipe));
   // }),

@@ -8,6 +8,11 @@ interface Task {
   title: string;
   contents: string;
   platform?: string;
+  modalHandler?: () => void;
+}
+
+interface CardStyledProps {
+  mode: Mode;
 }
 
 interface CardProps extends Task {
@@ -21,6 +26,7 @@ export const Card: React.FC<CardProps> = ({
   title,
   contents,
   platform,
+  modalHandler,
   onSubmit,
   onCancel,
 }) => {
@@ -96,7 +102,12 @@ export const Card: React.FC<CardProps> = ({
             <p className="caption">author by {platform}</p>
           </div>
           <div className="iconBtns">
-            <Button variant="ghost" pattern="icon-only" icon="close" />
+            <Button
+              variant="ghost"
+              pattern="icon-only"
+              icon="close"
+              onClick={modalHandler}
+            />
             <Button variant="ghost" pattern="icon-only" icon="edit" />
           </div>
         </>
