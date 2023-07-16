@@ -44,15 +44,10 @@ public class TaskService {
     }
 
     public List<ProcessResponseDto> getProcesses() {
-        List<Process> processes = taskRepository.findProcesses();
-
-        List<ProcessResponseDto> processResponseDtoList = new ArrayList<>();
-        for (Process process : processes) {
-            ProcessResponseDto from = ProcessResponseDto.from(process, getTasksBy(process.getProcessId()));
-            processResponseDtoList.add(from);
-        }
-
-        return processResponseDtoList;
+        return taskRepository.findProcesses()
+                .stream()
+                .map(process -> ProcessResponseDto.fromEntity(process, getTasksBy(process.getProcessId())))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     private List<TaskResponseDto> getTasksBy(final Long processId) {
