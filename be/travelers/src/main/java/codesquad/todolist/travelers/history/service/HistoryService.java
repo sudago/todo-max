@@ -1,6 +1,7 @@
 package codesquad.todolist.travelers.history.service;
 
 import codesquad.todolist.travelers.history.domain.dto.response.ActionHistoryResponseDto;
+import codesquad.todolist.travelers.history.domain.entity.History;
 import codesquad.todolist.travelers.history.domain.repository.HistoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,5 +23,8 @@ public class HistoryService {
         return historyRepository.findAll().stream()
                 .map(ActionHistoryResponseDto::from)
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    public void saveHistory(){
     }
 }
