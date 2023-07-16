@@ -19,8 +19,8 @@ public class TaskRequestDto {
         this.processId = processId;
     }
 
-    public Task toEntity() {
-        return new Task(null, title, contents, platform, LocalDateTime.now(), processId);
+    public static Task toEntity(TaskRequestDto taskRequestDto) {
+        return new Task(null, taskRequestDto.getTitle(), taskRequestDto.getContents(), taskRequestDto.getPlatform(), LocalDateTime.now(), taskRequestDto.getProcessId());
     }
 
     public String getTitle() {

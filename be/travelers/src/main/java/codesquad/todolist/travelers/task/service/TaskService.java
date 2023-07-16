@@ -25,7 +25,7 @@ public class TaskService {
     }
 
     public TaskPostResponseDto createTask(final TaskRequestDto taskRequestDto) {
-        Task task = taskRequestDto.toEntity();
+        Task task = TaskRequestDto.toEntity(taskRequestDto);
         Long taskId = taskRepository.save(task);
 
         return new TaskPostResponseDto(task, taskId);
@@ -35,8 +35,8 @@ public class TaskService {
         taskRepository.deleteBy(taskId);
     }
 
-    public void updateTask(final Long taskId, final TaskUpdateRequestDto task) {
-        taskRepository.updateBy(taskId, task.toEntity());
+    public void updateTask(final Long taskId, final TaskUpdateRequestDto taskUpdateRequestDto) {
+        taskRepository.updateBy(taskId, TaskUpdateRequestDto.toEntity(taskUpdateRequestDto));
     }
 
     public void updateTaskByProcess(final TaskProcessIdRequestDto taskProcessIdRequestDto, final Long taskId) {
