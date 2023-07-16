@@ -58,7 +58,7 @@ public class TaskService {
     private List<TaskResponseDto> getTasksBy(final Long processId) {
         return taskRepository.findAllBy(processId)
                 .stream()
-                .map(TaskResponseDto::new)
+                .map(TaskResponseDto::fromEntity)
                 .collect(Collectors.toUnmodifiableList());
     }
 }
