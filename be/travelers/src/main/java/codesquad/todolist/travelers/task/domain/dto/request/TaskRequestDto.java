@@ -2,9 +2,12 @@ package codesquad.todolist.travelers.task.domain.dto.request;
 
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import java.time.LocalDateTime;
+import javax.validation.constraints.Size;
 
 public class TaskRequestDto {
+    @Size(min = 1, max = 50, message = "제목 글자 수는 1에서 50자 이하입니다.")
     private String title;
+    @Size(min = 1, max = 500, message = "내용 글자 수는 1에서 500자 이하입니다.")
     private String contents;
     private String platform;
     private Long processId;
@@ -39,15 +42,5 @@ public class TaskRequestDto {
         return platform;
     }
 
-    public void setTitle(final String title) {
-        this.title = title;
-    }
 
-    public void setContents(final String contents) {
-        this.contents = contents;
-    }
-
-    public void setProcessId(final Long processId) {
-        this.processId = processId;
-    }
 }
