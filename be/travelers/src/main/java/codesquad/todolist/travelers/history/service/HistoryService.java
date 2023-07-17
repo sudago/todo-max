@@ -2,6 +2,8 @@ package codesquad.todolist.travelers.history.service;
 
 import codesquad.todolist.travelers.ActionType.ActionType;
 import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
+import codesquad.todolist.travelers.global.CustomException;
+import codesquad.todolist.travelers.global.ErrorCode;
 import codesquad.todolist.travelers.history.domain.dto.response.ActionHistoryResponseDto;
 import codesquad.todolist.travelers.history.domain.entity.History;
 import codesquad.todolist.travelers.history.domain.repository.HistoryRepository;
@@ -64,6 +66,6 @@ public class HistoryService {
         }
 
         History history = updatedTaskServiceHistoryDto.toEntity();
-        historyRepository.save(history);
+        historyRepository.save(history).orElseThrow(() -> new CustomException(ErrorCode.FAIL_HISTORY_CREATE));
     }
 }
