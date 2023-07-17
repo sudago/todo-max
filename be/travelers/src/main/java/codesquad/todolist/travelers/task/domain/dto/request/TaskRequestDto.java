@@ -20,7 +20,7 @@ public class TaskRequestDto {
     }
 
     public static Task toEntity(TaskRequestDto taskRequestDto) {
-        return new Task(null, taskRequestDto.getTitle(), taskRequestDto.getContents(), taskRequestDto.getPlatform(), LocalDateTime.now(), taskRequestDto.getProcessId());
+        return new Task(null, taskRequestDto.getTitle(), taskRequestDto.getContents(), taskRequestDto.getPlatform(), null, taskRequestDto.getProcessId());
     }
 
     public String getTitle() {
