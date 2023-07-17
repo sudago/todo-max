@@ -4,18 +4,24 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode implements StatusCode{
     // TODO: 에러에 맞게 수정하기
-    RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "","Resource not exists"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "","Internal server error"),
+    FAIL_TASK_CREATE(HttpStatus.SERVICE_UNAVAILABLE, "FT01", "Task 생성에 실패 했습니다."),
+    FAIL_HISTORY_CREATE(HttpStatus.SERVICE_UNAVAILABLE, "FH01", "History 생성에 실패 했습니다."),
+    VALIDATION_FAILED(HttpStatus.BAD_REQUEST, "FV01") // 입력 값 범위 초과
     ;
 
     private final HttpStatus httpStatus;
-    private final String message;
+    private String message;
     private final String customStatus;
 
     ErrorCode(HttpStatus httpStatus, String customStatus, String message) {
         this.httpStatus = httpStatus;
         this.customStatus = customStatus;
         this.message = message;
+    }
+
+    ErrorCode(HttpStatus httpStatus, String customStatus) {
+        this.httpStatus = httpStatus;
+        this.customStatus = customStatus;
     }
 
     @Override
