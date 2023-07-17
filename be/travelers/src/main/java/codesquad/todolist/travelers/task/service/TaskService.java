@@ -30,7 +30,7 @@ public class TaskService {
     @ActionId(ActionType.CREATE_TASK)
     public TaskPostResponseDto createTask(TaskServiceHistoryDto taskServiceHistoryDto,
                                           final TaskRequestDto taskRequestDto) {
-        Task task = taskRequestDto.toEntity();
+        Task task = TaskRequestDto.toEntity(taskRequestDto);
         Long taskId = taskRepository.save(task);
 
         return new TaskPostResponseDto(task, taskId);
@@ -43,8 +43,8 @@ public class TaskService {
 
     @ActionId(ActionType.UPDATE_TASK)
     public void updateTask(TaskServiceHistoryDto taskServiceHistoryDto, final Long taskId,
-                           final TaskUpdateRequestDto task) {
-        taskRepository.updateBy(taskId, task.toEntity());
+                           final TaskUpdateRequestDto taskUpdateRequestDto) {
+        taskRepository.updateBy(taskId, TaskUpdateRequestDto.toEntity(taskUpdateRequestDto));
     }
 
     @ActionId(ActionType.MOVE_TASK)
@@ -55,21 +55,16 @@ public class TaskService {
     }
 
     public List<ProcessResponseDto> getProcesses() {
-        List<Process> processes = taskRepository.findProcesses();
-
-        List<ProcessResponseDto> processResponseDtoList = new ArrayList<>();
-        for (Process process : processes) {
-            ProcessResponseDto from = ProcessResponseDto.from(process, getTasksBy(process.getProcessId()));
-            processResponseDtoList.add(from);
-        }
-
-        return processResponseDtoList;
+        return taskRepository.findProcesses()
+                .stream()
+                .map(process -> ProcessResponseDto.fromEntity(process, getTasksBy(process.getProcessId())))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     private List<TaskResponseDto> getTasksBy(final Long processId) {
         return taskRepository.findAllBy(processId)
                 .stream()
-                .map(TaskResponseDto::new)
+                .map(TaskResponseDto::fromEntity)
                 .collect(Collectors.toUnmodifiableList());
     }
 }
