@@ -11,15 +11,14 @@ public class History {
     private final LocalDateTime createdTime;
     private final Long userId;
 
-    public History(Long historyId, String title, String from, String to, Long actionId, LocalDateTime createdTime,
-                   Long userId) {
-        this.historyId = historyId;
-        this.title = title;
-        this.from = from;
-        this.to = to;
-        this.actionId = actionId;
-        this.createdTime = createdTime;
-        this.userId = userId;
+    private History(Builder builder) {
+        this.historyId = builder.historyId;
+        this.title = builder.title;
+        this.from = builder.from;
+        this.to = builder.to;
+        this.actionId = builder.actionId;
+        this.createdTime = builder.createdTime;
+        this.userId = builder.userId;
     }
 
     public Long getHistoryId() {
@@ -48,5 +47,55 @@ public class History {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public static class Builder {
+
+        private Long historyId;
+        private String title;
+        private String from;
+        private String to;
+        private Long actionId;
+        private LocalDateTime createdTime;
+        private Long userId;
+
+        public Builder historyId(Long historyId) {
+            this.historyId = historyId;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder from(String from) {
+            this.from = from;
+            return this;
+        }
+
+        public Builder to(String to) {
+            this.to = to;
+            return this;
+        }
+
+        public Builder actionId(Long actionId) {
+            this.actionId = actionId;
+            return this;
+        }
+
+        public Builder createdTime(LocalDateTime createdTime) {
+            this.createdTime = createdTime;
+            return this;
+        }
+
+        public Builder userId(Long userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public History build() {
+            return new History(this);
+        }
     }
 }

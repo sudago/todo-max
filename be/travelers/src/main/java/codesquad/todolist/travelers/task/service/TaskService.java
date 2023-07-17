@@ -1,9 +1,12 @@
 package codesquad.todolist.travelers.task.service;
 
+import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.annotation.ActionId;
+import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
-import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Process;
@@ -24,22 +27,30 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public TaskPostResponseDto createTask(final TaskRequestDto taskRequestDto) {
+    @ActionId(ActionType.CREATE_TASK)
+    public TaskPostResponseDto createTask(TaskServiceHistoryDto taskServiceHistoryDto,
+                                          final TaskRequestDto taskRequestDto) {
         Task task = taskRequestDto.toEntity();
         Long taskId = taskRepository.save(task);
 
         return new TaskPostResponseDto(task, taskId);
     }
 
-    public void deleteTask(final Long taskId) {
+    @ActionId(ActionType.DELETE_TASK)
+    public void deleteTask(TaskServiceHistoryDto taskServiceHistoryDto, final Long taskId) {
         taskRepository.deleteBy(taskId);
     }
 
-    public void updateTask(final Long taskId, final TaskUpdateRequestDto task) {
+    @ActionId(ActionType.UPDATE_TASK)
+    public void updateTask(TaskServiceHistoryDto taskServiceHistoryDto, final Long taskId,
+                           final TaskUpdateRequestDto task) {
         taskRepository.updateBy(taskId, task.toEntity());
     }
 
-    public void updateTaskByProcess(final TaskProcessIdRequestDto taskProcessIdRequestDto, final Long taskId) {
+    @ActionId(ActionType.MOVE_TASK)
+    public void updateTaskByProcess(TaskServiceHistoryDto taskServiceHistoryDto,
+                                    final TaskProcessIdRequestDto taskProcessIdRequestDto,
+                                    final Long taskId) {
         taskRepository.updateTaskBy(taskProcessIdRequestDto.getProcessId(), taskId);
     }
 

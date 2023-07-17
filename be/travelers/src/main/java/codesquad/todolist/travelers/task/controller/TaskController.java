@@ -1,5 +1,6 @@
 package codesquad.todolist.travelers.task.controller;
 
+import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.global.ApiResponse;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
@@ -40,7 +41,11 @@ public class TaskController {
     @Operation(summary = "카드 등록", description = "POST 요청으로 각 칼럼(process)에 대한 task를 등록한다.")
     @PostMapping("/task")
     public ResponseEntity<ApiResponse<?>> add(@RequestBody final TaskRequestDto taskRequestDto) {
-        TaskPostResponseDto task = taskService.createTask(taskRequestDto);
+        TaskPostResponseDto task = taskService.createTask(
+                TaskServiceHistoryDto.builder()
+                        .title(taskRequestDto.getTitle())
+                        .fromId(taskRequestDto.getProcessId())
+                        .build(), taskRequestDto);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success("200", task));
@@ -50,7 +55,10 @@ public class TaskController {
     @Parameter(name = "taskId", description = "카드의 고유 ID")
     @DeleteMapping("/task/{taskId}")
     public ResponseEntity<ApiResponse<?>> delete(@PathVariable final Long taskId) {
-        taskService.deleteTask(taskId);
+        taskService.deleteTask(
+                TaskServiceHistoryDto.builder()
+                        .taskId(taskId)
+                        .build(), taskId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success("200", "카드 삭제 성공!"));
@@ -61,7 +69,10 @@ public class TaskController {
     @PatchMapping("/task/{taskId}")
     public ResponseEntity<ApiResponse<?>> update(@PathVariable final Long taskId,
                                                  @RequestBody final TaskUpdateRequestDto taskUpdateRequestDto) {
-        taskService.updateTask(taskId, taskUpdateRequestDto);
+        taskService.updateTask(
+                TaskServiceHistoryDto.builder()
+                        .taskId(taskId)
+                        .build(), taskId, taskUpdateRequestDto);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success("200", "카드 수정 성공!"));
@@ -72,7 +83,11 @@ public class TaskController {
     @PatchMapping("/task/process/{taskId}")
     public ResponseEntity<ApiResponse<?>> move(@PathVariable final Long taskId,
                                                @RequestBody final TaskProcessIdRequestDto taskProcessIdRequestDto) {
-        taskService.updateTaskByProcess(taskProcessIdRequestDto, taskId);
+        taskService.updateTaskByProcess(
+                TaskServiceHistoryDto.builder()
+                        .taskId(taskId)
+                        .toId(taskProcessIdRequestDto.getProcessId())
+                        .build(), taskProcessIdRequestDto, taskId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success("200", "카드 이동 성공!"));
