@@ -11,6 +11,7 @@ import codesquad.todolist.travelers.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,7 @@ public class TaskController {
 
     @Operation(summary = "카드 등록", description = "POST 요청으로 각 칼럼(process)에 대한 task를 등록한다.")
     @PostMapping("/task")
-    public ResponseEntity<ApiResponse<?>> add(@RequestBody final TaskRequestDto taskRequestDto) {
+    public ResponseEntity<ApiResponse<?>> add(@RequestBody @Valid final TaskRequestDto taskRequestDto) {
         TaskPostResponseDto task = taskService.createTask(
                 TaskServiceHistoryDto.builder()
                         .title(taskRequestDto.getTitle())
@@ -68,7 +69,7 @@ public class TaskController {
     @Parameter(name = "taskId", description = "카드의 고유 ID")
     @PatchMapping("/task/{taskId}")
     public ResponseEntity<ApiResponse<?>> update(@PathVariable final Long taskId,
-                                                 @RequestBody final TaskUpdateRequestDto taskUpdateRequestDto) {
+                                                 @RequestBody @Valid final TaskUpdateRequestDto taskUpdateRequestDto) {
         taskService.updateTask(
                 TaskServiceHistoryDto.builder()
                         .taskId(taskId)
