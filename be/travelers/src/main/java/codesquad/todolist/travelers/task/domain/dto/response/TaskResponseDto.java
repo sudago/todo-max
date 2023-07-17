@@ -9,7 +9,7 @@ public class TaskResponseDto {
     private final String contents;
     private final String platform;
 
-    public TaskResponseDto(Long taskId, String title, String contents, String platform) {
+    private TaskResponseDto(Long taskId, String title, String contents, String platform) {
         this.taskId = taskId;
         this.title = title;
         this.contents = contents;
