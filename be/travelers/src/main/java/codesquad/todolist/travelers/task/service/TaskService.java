@@ -3,6 +3,8 @@ package codesquad.todolist.travelers.task.service;
 import codesquad.todolist.travelers.ActionType.ActionType;
 import codesquad.todolist.travelers.annotation.ActionId;
 import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
+import codesquad.todolist.travelers.global.CustomException;
+import codesquad.todolist.travelers.global.ErrorCode;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
@@ -31,7 +33,7 @@ public class TaskService {
     public TaskPostResponseDto createTask(TaskServiceHistoryDto taskServiceHistoryDto,
                                           final TaskRequestDto taskRequestDto) {
         Task task = TaskRequestDto.toEntity(taskRequestDto);
-        Long taskId = taskRepository.save(task);
+        Long taskId = taskRepository.save(task).orElseThrow(() -> new CustomException(ErrorCode.FAIL_TASK_CREATE));
 
         return new TaskPostResponseDto(task, taskId);
     }
