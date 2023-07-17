@@ -9,11 +9,15 @@ public class TaskResponseDto {
     private final String contents;
     private final String platform;
 
-    public TaskResponseDto(final Task task) {
-        this.taskId = task.getTaskId();
-        this.title = task.getTitle();
-        this.contents = task.getContents();
-        this.platform = task.getPlatform();
+    private TaskResponseDto(Long taskId, String title, String contents, String platform) {
+        this.taskId = taskId;
+        this.title = title;
+        this.contents = contents;
+        this.platform = platform;
+    }
+
+    public static TaskResponseDto fromEntity(final Task task){
+        return new TaskResponseDto(task.getTaskId(), task.getTitle(), task.getContents(), task.getPlatform());
     }
 
     public Long getTaskId() {
