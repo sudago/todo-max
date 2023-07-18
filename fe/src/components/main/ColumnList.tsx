@@ -1,6 +1,7 @@
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import { ColumnItem } from './ColumnItem';
+import { FloatingActionBtn } from './FloatingAction';
 import { useData } from '../../contexts/DataContext';
 
 type TaskType = {
@@ -20,8 +21,11 @@ type AddTaskType = TaskType & { processId: number };
 type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnList = () => {
+
+  const horizontalScrollRef = useRef(null);
   const { todoListData, setTodoListData } = useData();
   // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+
 
   useEffect(() => {
     const fetchTodoList = async () => {
@@ -59,6 +63,50 @@ export const ColumnList = () => {
     });
   };
 
+
+  const handleTitleChange = (e, processId) => {
+    const newName = e.target.value;
+    setTodoListData(
+      (prevData) =>
+        prevData &&
+        prevData.map((item) =>
+          item.processId === processId ? { ...item, name: newName } : item,
+        ),
+    );
+  };
+
+  const handleNewColumn = () => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      const newProcessId =
+        Math.max(...prevData.map((item) => item.processId)) + 1;
+
+      return [
+        ...prevData,
+        {
+          processId: newProcessId,
+          name: '새 리스트',
+          tasks: [],
+        },
+      ];
+    });
+  };
+
+  const handleColumnDelete = (processId: number) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.filter((item) => item.processId !== processId);
+    });
+  };
+
+  const scrollHorizontally = (e) => {
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.scrollLeft += e.deltaY;
+    }
+  };
+
   const handleTaskEdit = (editedTask: EditTaskType) => {
     setTodoListData((prevData) => {
       if (!prevData) return null;
@@ -84,7 +132,7 @@ export const ColumnList = () => {
 
   return (
     <MainLayout>
-      <ColumnLayout>
+      <ColumnLayout onWheel={scrollHorizontally} ref={horizontalScrollRef}>
         {todoListData.map((item: TodoItemType) => (
           <ColumnItem
             key={item.processId}
@@ -93,21 +141,32 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
+
+            onTitleChange={handleTitleChange}
+            onColumnDelete={handleColumnDelete}
+
             onTaskEdit={handleTaskEdit}
+
           />
         ))}
       </ColumnLayout>
+      <FloatingActionBtn onNewColumn={handleNewColumn} />
     </MainLayout>
   );
 };
 
 const MainLayout = styled.div`
-  padding: 32px 80px 0;
+  padding: 32px 80px;
+  height: 85vh;
+
   background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
 `;
 
 const ColumnLayout = styled.div`
-  width: 300px;
+  width: auto;
   display: flex;
   gap: 24px;
+  height: 100%;
+  overflow: hidden;
+  overflow-x: auto;
 `;

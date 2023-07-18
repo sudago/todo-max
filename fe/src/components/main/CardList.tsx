@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card/Card';
 import { Modal } from '../modal/Modal';
@@ -35,6 +35,18 @@ export const CardList: React.FC<CardProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
+
+  const [taskList, setTaskList] = useState<TaskType[]>(tasks);
+  const verticalScrollRef = useRef(null);
+
+  const scrollVertically = (e) => {
+    // scrollHeight이 clientHeight보다 크면 스크롤 돼야함
+    // 이 경우에만 세로 스크롤 고
+    if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
+      e.stopPropagation();
+    }
+  };
+
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -76,7 +88,11 @@ export const CardList: React.FC<CardProps> = ({
   };
 
   return (
-    <CardListLayout>
+    <CardListLayout
+      onWheel={scrollVertically}
+      ref={verticalScrollRef}
+      className="layout"
+    >
       {isAddMode && (
         <AddModeCard
           processId={processId}
@@ -118,4 +134,11 @@ export const CardListLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
+  overflow-y: auto;
+  // overscroll-behavior: contain;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

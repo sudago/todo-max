@@ -38,11 +38,11 @@ export const ActionList = () => {
 
   const isListEmpty = historyData.length === 0;
 
-  const onClose = () => {
+  const handleClose = () => {
     setIsVisible((prevVisible) => !prevVisible);
   };
 
-  const onClick = async () => {
+  const handleDelete = async () => {
     console.log('삭제~');
     const response = await fetch('/history', {
       method: 'DELETE',
@@ -74,7 +74,7 @@ export const ActionList = () => {
                 variant="ghost"
                 pattern="text-only"
                 text="기록 전체 삭제"
-                onClick={onClose}
+                onClick={handleClose}
               />
             </ButtonLayout>
           </>
@@ -83,8 +83,8 @@ export const ActionList = () => {
       {isVisible && (
         <Modal
           alertText="모든 사용자 활동 기록을 삭제할까요?"
-          onClose={onClose}
-          onClick={onClick}
+          onClose={handleClose}
+          onClick={handleDelete}
         />
       )}
     </>
