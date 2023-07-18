@@ -5,7 +5,7 @@ import codesquad.todolist.travelers.global.ApiResponse;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
-import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
 import codesquad.todolist.travelers.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ public class TaskController {
     @Operation(summary = "todolist 가져오기", description = "서버로부터 todolist에 필요한 모든 데이터를 가져온다.")
     @GetMapping("/")
     public ResponseEntity<ApiResponse<?>> get() {
-        List<ProcessResponseDto> processes = taskService.getProcesses();
+        List<TasksByProcessResponseDto> processes = taskService.getAllTasksByProcess();
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponse.success("200", processes));

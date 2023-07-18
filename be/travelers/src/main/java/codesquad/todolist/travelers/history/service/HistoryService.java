@@ -7,6 +7,7 @@ import codesquad.todolist.travelers.global.ErrorCode;
 import codesquad.todolist.travelers.history.domain.dto.response.ActionHistoryResponseDto;
 import codesquad.todolist.travelers.history.domain.entity.History;
 import codesquad.todolist.travelers.history.domain.repository.HistoryRepository;
+import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
 import java.util.List;
@@ -17,10 +18,13 @@ import org.springframework.stereotype.Service;
 public class HistoryService {
     private final HistoryRepository historyRepository;
     private final TaskRepository taskRepository;
+    private final ProcessRepository processRepository;
 
-    public HistoryService(HistoryRepository historyRepository, TaskRepository taskRepository) {
+    public HistoryService(HistoryRepository historyRepository, TaskRepository taskRepository,
+                          ProcessRepository processRepository) {
         this.historyRepository = historyRepository;
         this.taskRepository = taskRepository;
+        this.processRepository = processRepository;
     }
 
     public void deleteAllHistory() {
@@ -48,16 +52,16 @@ public class HistoryService {
 
         switch (actionType) {
             case CREATE_TASK:
-                fromName = taskRepository.findProcessNameBy(taskServiceHistoryDto.getFromId());
+                fromName = processRepository.findProcessNameBy(taskServiceHistoryDto.getFromId());
                 updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(taskServiceHistoryDto, actionType, fromName);
                 break;
             case DELETE_TASK:
-                fromName = taskRepository.findProcessNameBy(task.getProcessId());
+                fromName = processRepository.findProcessNameBy(task.getProcessId());
                 updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType, fromName);
                 break;
             case MOVE_TASK:
-                fromName = taskRepository.findProcessNameBy(task.getProcessId());
-                toName = taskRepository.findProcessNameBy(taskServiceHistoryDto.getToId());
+                fromName = processRepository.findProcessNameBy(task.getProcessId());
+                toName = processRepository.findProcessNameBy(taskServiceHistoryDto.getToId());
                 updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType, fromName, toName);
                 break;
             case UPDATE_TASK:
