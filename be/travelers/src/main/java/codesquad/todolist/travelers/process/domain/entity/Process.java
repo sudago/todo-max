@@ -20,4 +20,9 @@ public class Process {
     public String getName() {
         return name;
     }
+
+    public Process update(String processName) {
+        this.name = processName;
+        return this;
+    }
 }

@@ -7,6 +7,8 @@ import codesquad.todolist.travelers.process.domain.dto.ProcessRequestDto;
 import codesquad.todolist.travelers.process.service.ProcessService;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +30,13 @@ public class ProcessController {
         return ResponseEntity.status(PROCESS_SUCCESS.getHttpStatus())
                 .body(ApiResponse.success(PROCESS_SUCCESS.getCustomStatus(), PROCESS_SUCCESS.getMessage()));
     }
+
+    @PatchMapping("/process/{processId}")
+    public ResponseEntity<ApiResponse<?>> update(@Valid @RequestBody ProcessRequestDto processRequestDto, @PathVariable Long processId) {
+        processService.updateProcess(processRequestDto, processId);
+        return ResponseEntity.status(PROCESS_SUCCESS.getHttpStatus())
+                .body(ApiResponse.success(PROCESS_SUCCESS.getCustomStatus(), PROCESS_SUCCESS.getMessage()));
+    }
+
 
 }
