@@ -7,6 +7,7 @@ import codesquad.todolist.travelers.process.domain.dto.ProcessRequestDto;
 import codesquad.todolist.travelers.process.service.ProcessService;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,5 +39,10 @@ public class ProcessController {
                 .body(ApiResponse.success(PROCESS_SUCCESS.getCustomStatus(), PROCESS_SUCCESS.getMessage()));
     }
 
-
+    @DeleteMapping("/process/{processId}")
+    public ResponseEntity<ApiResponse<?>> delete(@PathVariable Long processId) {
+        processService.deleteProcess(processId);
+        return ResponseEntity.status(PROCESS_SUCCESS.getHttpStatus())
+                .body(ApiResponse.success(PROCESS_SUCCESS.getCustomStatus(), PROCESS_SUCCESS.getMessage()));
+    }
 }

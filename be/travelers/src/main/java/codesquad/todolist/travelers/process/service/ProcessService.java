@@ -30,4 +30,10 @@ public class ProcessService {
                 () -> new CustomException(NOT_EXIST_PROCESS));
         processRepository.updateProcess(process.update(processRequestDto.getProcessName()));
     }
+
+    public void deleteProcess(Long processId) {
+        processRepository.findProcessById(processId).orElseThrow(
+                () -> new CustomException(NOT_EXIST_PROCESS));
+        processRepository.deleteProcess(processId);
+    }
 }
