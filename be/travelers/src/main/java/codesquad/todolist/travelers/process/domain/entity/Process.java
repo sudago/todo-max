@@ -9,6 +9,10 @@ public class Process {
         this.name = name;
     }
 
+    public Process(String name) {
+        this.name = name;
+    }
+
     public Long getProcessId() {
         return processId;
     }
