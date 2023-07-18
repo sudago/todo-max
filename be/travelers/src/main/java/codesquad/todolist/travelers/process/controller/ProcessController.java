@@ -28,4 +28,5 @@ public class ProcessController {
         return ResponseEntity.status(PROCESS_SUCCESS.getHttpStatus())
                 .body(ApiResponse.success(PROCESS_SUCCESS.getCustomStatus(), PROCESS_SUCCESS.getMessage()));
     }
+
 }

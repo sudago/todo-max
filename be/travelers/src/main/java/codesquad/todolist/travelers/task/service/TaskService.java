@@ -55,7 +55,7 @@ public class TaskService {
         taskRepository.updateTaskBy(taskProcessIdRequestDto.getProcessId(), taskId);
     }
 
-    public List<TasksByProcessResponseDto> getAllTasksByProcess() {
+    public List<TasksByProcessResponseDto> getAllTodoList() {
         return processRepository.findProcesses()
                 .stream()
                 .map(process -> TasksByProcessResponseDto.fromEntity(process, getTasksBy(process.getProcessId())))
