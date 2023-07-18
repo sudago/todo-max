@@ -7,7 +7,8 @@ public enum SuccessCode implements StatusCode{
     TASK_SUCCESS(HttpStatus.OK, "T01", "카드 요청 성공!"),
     // 히스토리 요청
     HISTORY_SUCCESS(HttpStatus.OK, "H01", "히스토리 요청 성공!"),
-
+    // 컬럼 요청
+    PROCESS_SUCCESS(HttpStatus.OK, "P01", "컬럼 요청 성공!"),
     ;
 
     private final HttpStatus httpStatus;
