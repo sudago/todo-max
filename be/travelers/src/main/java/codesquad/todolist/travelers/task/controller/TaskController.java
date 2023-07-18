@@ -5,8 +5,8 @@ import codesquad.todolist.travelers.global.CommonApiResponse;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
-import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class TaskController {
     private final TaskService taskService;
 
@@ -62,7 +64,7 @@ public class TaskController {
                         .build(), taskId);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 삭제 성공!"));
+                .body(CommonApiResponse.success("200", "카드 삭제 성공"));
     }
 
     @Operation(summary = "카드 수정", description = "PATCH 요청으로 고유 ID에 따른 카드를 수정한다.")
@@ -76,7 +78,7 @@ public class TaskController {
                         .build(), taskId, taskUpdateRequestDto);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 수정 성공!"));
+                .body(CommonApiResponse.success("200", "카드 수정 성공"));
     }
 
     @Operation(summary = "카드 이동", description = "PATCH 요청으로 원하는 칼럼(process)으로 카드를 이동시킨다. body로는 processId를 받는다.")
@@ -91,6 +93,6 @@ public class TaskController {
                         .build(), taskProcessIdRequestDto, taskId);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 이동 성공!"));
+                .body(CommonApiResponse.success("200", "카드 이동 성공"));
     }
 }
