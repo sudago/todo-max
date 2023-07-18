@@ -1,6 +1,6 @@
 package codesquad.todolist.travelers.history.controller;
 
-import codesquad.todolist.travelers.global.ApiResponse;
+import codesquad.todolist.travelers.global.CommonApiResponse;
 import codesquad.todolist.travelers.history.domain.dto.response.ActionHistoryResponseDto;
 import codesquad.todolist.travelers.history.service.HistoryService;
 import java.util.List;
@@ -20,18 +20,18 @@ public class HistoryController {
     }
 
     @DeleteMapping("/history")
-    public ResponseEntity<ApiResponse> delete() {
+    public ResponseEntity<CommonApiResponse> delete() {
         historyService.deleteAllHistory();
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success("200", "활동 기록 삭제 성공"));
+                .body(CommonApiResponse.success("200", "활동 기록 삭제 성공"));
     }
 
     @GetMapping("/history")
-    public ResponseEntity<ApiResponse<?>> get() {
+    public ResponseEntity<CommonApiResponse<?>> get() {
         List<ActionHistoryResponseDto> actionHistories = historyService.getAllHistory();
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.success("200", actionHistories));
+                .body(CommonApiResponse.success("200", actionHistories));
     }
 }
