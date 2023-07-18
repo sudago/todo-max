@@ -5,16 +5,15 @@ import codesquad.todolist.travelers.annotation.ActionId;
 import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.global.ErrorCode;
+import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
-import codesquad.todolist.travelers.task.domain.dto.response.ProcessResponseDto;
+import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
-import codesquad.todolist.travelers.task.domain.entity.Process;
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -24,9 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final ProcessRepository processRepository;
 
-    public TaskService(final TaskRepository taskRepository) {
+    public TaskService(final TaskRepository taskRepository, ProcessRepository processRepository) {
         this.taskRepository = taskRepository;
+        this.processRepository = processRepository;
     }
 
     @ActionId(ActionType.CREATE_TASK)
@@ -54,10 +55,10 @@ public class TaskService {
         taskRepository.updateTaskBy(taskProcessIdRequestDto.getProcessId(), taskId);
     }
 
-    public List<ProcessResponseDto> getProcesses() {
-        return taskRepository.findProcesses()
+    public List<TasksByProcessResponseDto> getAllTasksByProcess() {
+        return processRepository.findProcesses()
                 .stream()
-                .map(process -> ProcessResponseDto.fromEntity(process, getTasksBy(process.getProcessId())))
+                .map(process -> TasksByProcessResponseDto.fromEntity(process, getTasksBy(process.getProcessId())))
                 .collect(Collectors.toUnmodifiableList());
     }
 

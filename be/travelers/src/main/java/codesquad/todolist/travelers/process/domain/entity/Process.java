@@ -1,4 +1,4 @@
-package codesquad.todolist.travelers.task.domain.entity;
+package codesquad.todolist.travelers.process.domain.entity;
 
 public class Process {
     private Long processId;
