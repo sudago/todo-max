@@ -21,7 +21,7 @@ class JdbcTaskRepositoryImplTest {
         //when
         Long taskId = repository.save(expected).get();
         //then
-        Task actual = repository.findBy(taskId);
+        Task actual = repository.findByIgnoringDeleted(taskId);
 
         Assertions.assertThat(actual)
                 .usingRecursiveComparison() // 값 하나씩 돌면서 비교해주는 메서드
