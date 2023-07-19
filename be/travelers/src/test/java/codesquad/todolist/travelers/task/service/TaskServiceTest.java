@@ -11,7 +11,6 @@ import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,7 +47,7 @@ class TaskServiceTest {
     }
 
     private Task dummyTask() {
-        return new Task(1L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L);
+        return new Task(1L, "제목입니다", "내용입니다", "web", 1L, 0);
     }
 
     private TaskRequestDto dummyTaskRequestDto() {
@@ -81,13 +80,13 @@ class TaskServiceTest {
     }
 
     private List<Task> dummyTaskListForProcessId1() {
-        return List.of(new Task(1L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L)
-                , new Task(2L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L));
+        return List.of(new Task(1L, "제목입니다", "내용입니다", "web", 1L, 0)
+                , new Task(2L, "제목입니다", "내용입니다", "web", 1L, 0));
     }
 
     private List<Task> dummyTaskListForProcessId2() {
-        return List.of(new Task(3L, "두번째 제목입니다.", "내용입니다", "web", LocalDateTime.now(), 2L)
-                , new Task(4L, "두번째 제목입니다.", "내용입니다", "web", LocalDateTime.now(), 2L));
+        return List.of(new Task(3L, "두번째 제목입니다.", "내용입니다", "web", 2L, 0)
+                , new Task(4L, "두번째 제목입니다.", "내용입니다", "web", 2L, 0));
     }
 
     private List<Process> dummyProcessList() {

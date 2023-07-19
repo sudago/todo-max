@@ -1,5 +1,7 @@
 package codesquad.todolist.travelers.task.controller;
 
+import static codesquad.todolist.travelers.global.SuccessCode.TASK_SUCCESS;
+
 import codesquad.todolist.travelers.global.CommonApiResponse;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskMoveRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
@@ -11,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import javax.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +37,9 @@ public class TaskController {
     public ResponseEntity<CommonApiResponse<?>> get() {
         List<TasksByProcessResponseDto> processes = taskService.getAllTodoList();
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", processes));
+        return ResponseEntity.status(TASK_SUCCESS.getHttpStatus())
+                .body(CommonApiResponse.success(TASK_SUCCESS.getCustomStatus(),
+                        processes));
     }
 
     @Operation(summary = "카드 등록", description = "POST 요청으로 각 칼럼(process)에 대한 task를 등록한다.")
@@ -45,8 +47,8 @@ public class TaskController {
     public ResponseEntity<CommonApiResponse<?>> add(@RequestBody @Valid final TaskRequestDto taskRequestDto) {
         TaskPostResponseDto task = taskService.createTask(taskRequestDto);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", task));
+        return ResponseEntity.status(TASK_SUCCESS.getHttpStatus())
+                .body(CommonApiResponse.success(TASK_SUCCESS.getCustomStatus(), task));
     }
 
     @Operation(summary = "카드 삭제", description = "DELETE 요청으로 고유 ID에 따른 카드를 삭제한다.")
@@ -55,8 +57,8 @@ public class TaskController {
     public ResponseEntity<CommonApiResponse<?>> delete(@PathVariable final Long taskId) {
         taskService.deleteTask(taskId);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 삭제 성공"));
+        return ResponseEntity.status(TASK_SUCCESS.getHttpStatus())
+                .body(CommonApiResponse.success(TASK_SUCCESS.getCustomStatus(), TASK_SUCCESS.getMessage()));
     }
 
     @Operation(summary = "카드 수정", description = "PATCH 요청으로 고유 ID에 따른 카드를 수정한다.")
@@ -66,8 +68,8 @@ public class TaskController {
                                                        @RequestBody @Valid final TaskUpdateRequestDto taskUpdateRequestDto) {
         taskService.updateTask(taskId, taskUpdateRequestDto);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 수정 성공"));
+        return ResponseEntity.status(TASK_SUCCESS.getHttpStatus())
+                .body(CommonApiResponse.success(TASK_SUCCESS.getCustomStatus(), TASK_SUCCESS.getMessage()));
     }
 
     @Operation(summary = "카드 이동", description = "PATCH 요청으로 원하는 칼럼(process)으로 카드를 이동시킨다. body로는 processId를 받는다.")
@@ -77,7 +79,7 @@ public class TaskController {
                                                      @RequestBody final TaskMoveRequestDto taskMoveRequestDto) {
         taskService.updateTaskByProcess(taskId, taskMoveRequestDto);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(CommonApiResponse.success("200", "카드 이동 성공"));
+        return ResponseEntity.status(TASK_SUCCESS.getHttpStatus())
+                .body(CommonApiResponse.success(TASK_SUCCESS.getCustomStatus(), TASK_SUCCESS.getMessage()));
     }
 }

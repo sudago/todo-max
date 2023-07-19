@@ -1,6 +1,6 @@
 package codesquad.todolist.travelers.task.service;
 
-import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.actionType.ActionType;
 import codesquad.todolist.travelers.annotation.ActionId;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.global.ErrorCode;

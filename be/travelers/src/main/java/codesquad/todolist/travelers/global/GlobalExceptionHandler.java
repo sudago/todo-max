@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 
         StringBuilder errorMessage = new StringBuilder();
         for (ObjectError error : objectErrors) {
-            errorMessage.append("Message: ").append(error.getDefaultMessage()).append("\n");
+            errorMessage.append(error.getDefaultMessage()).append("\n");
         }
 
         return ResponseEntity.status(statusCode.getHttpStatus())
