@@ -1,6 +1,7 @@
 package codesquad.todolist.travelers.process.service;
 
-import static codesquad.todolist.travelers.global.ErrorCode.*;
+import static codesquad.todolist.travelers.global.ErrorCode.FAIL_PROCESS_CREATE;
+import static codesquad.todolist.travelers.global.ErrorCode.NOT_EXIST_PROCESS;
 
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.process.domain.dto.ProcessRequestDto;
@@ -35,5 +36,9 @@ public class ProcessService {
         processRepository.findProcessById(processId).orElseThrow(
                 () -> new CustomException(NOT_EXIST_PROCESS));
         processRepository.deleteProcess(processId);
+    }
+
+    public String findProcessName(Long processId) {
+        return processRepository.findProcessNameBy(processId);
     }
 }

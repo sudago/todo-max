@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codesquad.todolist.travelers.annotation.ControllerTest;
-import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.process.domain.entity.Process;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
@@ -76,19 +75,6 @@ class TaskControllerTest {
         return new Task(1L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L);
     }
 
-    private TaskServiceHistoryDto dummyTaskServiceHistoryDto(TaskRequestDto taskRequestDto) {
-        return TaskServiceHistoryDto.builder()
-                .title(taskRequestDto.getTitle())
-                .fromId(taskRequestDto.getProcessId())
-                .build();
-    }
-
-    private TaskServiceHistoryDto dummyTaskServiceHistoryDto(Long taskId) {
-        return TaskServiceHistoryDto.builder()
-                .taskId(taskId)
-                .build();
-    }
-
     private TaskRequestDto dummyTaskRequestDto() {
         return new TaskRequestDto("제목입니다", "내용입니다", "web", 1L);
     }
@@ -104,7 +90,7 @@ class TaskControllerTest {
     @DisplayName("카드를 생성하면 해당 카드의 정보가 반환된다.")
     void createTask() throws Exception {
 
-        given(taskService.createTask(any(), any()))
+        given(taskService.createTask(any()))
                 .willReturn(dummyTaskPostResponseDto());
 
         // when
@@ -130,7 +116,7 @@ class TaskControllerTest {
     @DisplayName("카드를 삭제할 수 있다.")
     void deleteTask() throws Exception {
         // given
-        doNothing().when(taskService).deleteTask(dummyTaskServiceHistoryDto(1L), 1L);
+        doNothing().when(taskService).deleteTask(1L);
 
         // when
         ResultActions resultActions = mockMvc.perform(
@@ -152,9 +138,8 @@ class TaskControllerTest {
     @Test
     @DisplayName("PATCH 요청으로 고유 ID(taskId)에 따른 카드를 수정한다.")
     void updateSuccessTest() throws Exception {
-        // given
-        doNothing().when(taskService)
-                .updateTask(dummyTaskServiceHistoryDto(dummyTaskRequestDto()), 1L, dummyTaskUpdateRequestDto());
+        //given
+        doNothing().when(taskService).updateTask(1L, dummyTaskUpdateRequestDto());
 
         // when
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -180,8 +165,7 @@ class TaskControllerTest {
     void moveSuccessTest() throws Exception {
         // given
         doNothing().when(taskService)
-                .updateTaskByProcess(dummyTaskServiceHistoryDto(dummyTaskRequestDto()),
-                        dummyTaskProcessIdRequestDto(), 1L);
+                .updateTaskByProcess(1L, dummyTaskProcessIdRequestDto());
 
         // when
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
