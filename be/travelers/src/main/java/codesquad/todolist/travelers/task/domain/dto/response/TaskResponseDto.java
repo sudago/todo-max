@@ -1,7 +1,6 @@
 package codesquad.todolist.travelers.task.domain.dto.response;
 
 import codesquad.todolist.travelers.task.domain.entity.Task;
-import java.time.LocalDateTime;
 
 public class TaskResponseDto {
     private final Long taskId;
@@ -16,7 +15,7 @@ public class TaskResponseDto {
         this.platform = platform;
     }
 
-    public static TaskResponseDto fromEntity(final Task task){
+    public static TaskResponseDto fromEntity(final Task task) {
         return new TaskResponseDto(task.getTaskId(), task.getTitle(), task.getContents(), task.getPlatform());
     }
 

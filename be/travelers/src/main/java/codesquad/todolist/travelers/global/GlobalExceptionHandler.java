@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<CommonApiResponse<?>> handleCustomException(CustomException e){
+    public ResponseEntity<CommonApiResponse<?>> handleCustomException(CustomException e) {
         StatusCode statusCode = e.getStatusCode();
 
         return ResponseEntity.status(statusCode.getHttpStatus())
-                .body(CommonApiResponse.fail(statusCode.getCustomStatus(),statusCode.getMessage()));
+                .body(CommonApiResponse.fail(statusCode.getCustomStatus(), statusCode.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<CommonApiResponse<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ResponseEntity<CommonApiResponse<?>> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e) {
         StatusCode statusCode = ErrorCode.VALIDATION_FAILED;
 
         List<ObjectError> objectErrors = e.getBindingResult().getAllErrors();
@@ -30,7 +31,7 @@ public class GlobalExceptionHandler {
         }
 
         return ResponseEntity.status(statusCode.getHttpStatus())
-                .body(CommonApiResponse.fail(statusCode.getCustomStatus(),errorMessage.toString()));
+                .body(CommonApiResponse.fail(statusCode.getCustomStatus(), errorMessage.toString()));
     }
-    
+
 }

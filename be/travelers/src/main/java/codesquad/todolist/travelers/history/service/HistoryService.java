@@ -44,7 +44,7 @@ public class HistoryService {
 
         saveHistory(taskServiceHistoryDto);
     }
-    
+
     public void saveActionMoveHistory(Long taskId, String fromName, ActionType actionType) {
         Task task = taskRepository.findByIgnoringDeleted(taskId);
         String toName = processRepository.findProcessNameBy(task.getProcessId());
