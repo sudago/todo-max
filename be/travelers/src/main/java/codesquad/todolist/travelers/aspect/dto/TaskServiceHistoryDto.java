@@ -1,6 +1,6 @@
 package codesquad.todolist.travelers.aspect.dto;
 
-import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.actionType.ActionType;
 import codesquad.todolist.travelers.history.domain.entity.History;
 import codesquad.todolist.travelers.task.domain.entity.Task;
 

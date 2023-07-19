@@ -1,6 +1,6 @@
 package codesquad.todolist.travelers.annotation;
 
-import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.actionType.ActionType;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

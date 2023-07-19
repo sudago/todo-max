@@ -27,12 +27,11 @@ class JdbcTaskRepositoryImplTest {
                 .usingRecursiveComparison() // 값 하나씩 돌면서 비교해주는 메서드
                 // DB에서 생성해주는 건 무시
                 .ignoringFields("taskId")
-                .ignoringFields("createdTime")
                 .isEqualTo(expected);
     }
 
     private Task dummyTask() {
-        return new Task(null, "제목입니다", "내용입니다", "web", null, 1L);
+        return new Task(null, "제목입니다", "내용입니다", "web", 1L, 0);
     }
 
     // 지안

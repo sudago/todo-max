@@ -1,11 +1,11 @@
 package codesquad.todolist.travelers.task.service;
 
-import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.actionType.ActionType;
 import codesquad.todolist.travelers.annotation.ActionId;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.global.ErrorCode;
 import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
-import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.request.TaskMoveRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
@@ -31,8 +31,12 @@ public class TaskService {
 
     @ActionId(ActionType.CREATE_TASK)
     public TaskPostResponseDto createTask(final TaskRequestDto taskRequestDto) {
-        Task task = TaskRequestDto.toEntity(taskRequestDto);
-        Long taskId = taskRepository.save(task).orElseThrow(() -> new CustomException(ErrorCode.FAIL_TASK_CREATE));
+        List<Task> tasks = taskRepository.findAllBy(taskRequestDto.getProcessId());
+        double position = Task.calculatePosition(tasks);
+
+        Task task = TaskRequestDto.toEntity(taskRequestDto, position);
+        Long taskId = taskRepository.save(task)
+                .orElseThrow(() -> new CustomException(ErrorCode.FAIL_TASK_CREATE));
 
         return new TaskPostResponseDto(task, taskId);
     }
@@ -48,8 +52,36 @@ public class TaskService {
     }
 
     @ActionId(ActionType.MOVE_TASK)
-    public void updateTaskByProcess(final Long taskId, final TaskProcessIdRequestDto taskProcessIdRequestDto) {
-        taskRepository.updateTaskBy(taskProcessIdRequestDto.getProcessId(), taskId);
+    public void updateTaskByProcess(final Long taskId, final TaskMoveRequestDto taskMoveRequestDto) {
+        double updatePosition;
+
+        if (taskMoveRequestDto.hasOnlyUp()) {
+            updatePosition = calculatePositionForOnlyUp(taskMoveRequestDto);
+        } else if (taskMoveRequestDto.hasOnlyDown()) {
+            updatePosition = calculatePositionForOnlyDown(taskMoveRequestDto);
+        } else if (taskMoveRequestDto.hasUpAndDown()) {
+            updatePosition = calculatePositionForBoth(taskMoveRequestDto);
+        } else { //task 이동시 upTask와 downTask가 없을때
+            updatePosition = 1.0;
+        }
+
+        taskRepository.updateTaskBy(taskMoveRequestDto.getProcessId(), taskId, updatePosition);
+    }
+
+    private double calculatePositionForOnlyUp(TaskMoveRequestDto taskMoveRequestDto) {
+        double upPosition = taskRepository.findPositionById(taskMoveRequestDto.getUpTaskId());
+        return upPosition / 2.0;
+    }
+
+    private double calculatePositionForOnlyDown(TaskMoveRequestDto taskMoveRequestDto) {
+        double downPosition = taskRepository.findPositionById(taskMoveRequestDto.getDownTaskId());
+        return downPosition + 1.0;
+    }
+
+    private double calculatePositionForBoth(TaskMoveRequestDto taskMoveRequestDto) {
+        double upPosition = taskRepository.findPositionById(taskMoveRequestDto.getUpTaskId());
+        double downPosition = taskRepository.findPositionById(taskMoveRequestDto.getDownTaskId());
+        return (upPosition + downPosition) / 2.0;
     }
 
     public List<TasksByProcessResponseDto> getAllTodoList() {

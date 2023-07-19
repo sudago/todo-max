@@ -1,6 +1,6 @@
 package codesquad.todolist.travelers.history.service;
 
-import codesquad.todolist.travelers.ActionType.ActionType;
+import codesquad.todolist.travelers.actionType.ActionType;
 import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.global.ErrorCode;
@@ -44,7 +44,7 @@ public class HistoryService {
 
         saveHistory(taskServiceHistoryDto);
     }
-    
+
     public void saveActionMoveHistory(Long taskId, String fromName, ActionType actionType) {
         Task task = taskRepository.findByIgnoringDeleted(taskId);
         String toName = processRepository.findProcessNameBy(task.getProcessId());

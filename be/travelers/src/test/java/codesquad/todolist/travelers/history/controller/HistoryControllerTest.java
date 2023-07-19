@@ -1,5 +1,6 @@
 package codesquad.todolist.travelers.history.controller;
 
+import static codesquad.todolist.travelers.global.SuccessCode.HISTORY_SUCCESS;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -41,8 +42,8 @@ class HistoryControllerTest {
         //then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value("200"))
-                .andExpect(jsonPath("$.message").value("활동 기록 삭제 성공"));
+                .andExpect(jsonPath("$.statusCode").value(HISTORY_SUCCESS.getCustomStatus()))
+                .andExpect(jsonPath("$.message").value(HISTORY_SUCCESS.getMessage()));
     }
 
     @Test
@@ -57,7 +58,7 @@ class HistoryControllerTest {
         //then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value("200"))
+                .andExpect(jsonPath("$.statusCode").value(HISTORY_SUCCESS.getCustomStatus()))
                 .andExpect(jsonPath("$.message[0].title").value("블로그에 포스팅할 것"))
                 .andExpect(jsonPath("$.message[0].from").value("하고있는 일"))
                 .andExpect(jsonPath("$.message[0].to").value("해야할 일"))
