@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `task`
     `platform`     VARCHAR(20)                        NOT NULL,
     `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP NULL,
     `process_id`   BIGINT                             NOT NULL,
+    `is_deleted`   TINYINT(1)                         DEFAULT 0,
     CONSTRAINT `fk_Task_process_id`
     FOREIGN KEY (`process_id`) REFERENCES `process` (`process_id`)
     );
