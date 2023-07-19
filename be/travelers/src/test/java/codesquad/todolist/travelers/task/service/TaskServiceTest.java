@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import codesquad.todolist.travelers.annotation.ServiceTest;
-import codesquad.todolist.travelers.aspect.dto.TaskServiceHistoryDto;
 import codesquad.todolist.travelers.process.domain.entity.Process;
 import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
@@ -42,7 +41,7 @@ class TaskServiceTest {
         given(taskRepository.save(any())).willReturn(Optional.ofNullable(dummyTask().getTaskId()));
 
         //when
-        taskService.createTask(dummyTaskServiceHistoryDto(), dummyTaskRequestDto());
+        taskService.createTask(dummyTaskRequestDto());
 
         //then
         Assertions.assertThat(1L).isEqualTo(dummyTask().getTaskId());
@@ -50,11 +49,6 @@ class TaskServiceTest {
 
     private Task dummyTask() {
         return new Task(1L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L);
-    }
-
-    private TaskServiceHistoryDto dummyTaskServiceHistoryDto() {
-        return TaskServiceHistoryDto.builder()
-                .build();
     }
 
     private TaskRequestDto dummyTaskRequestDto() {

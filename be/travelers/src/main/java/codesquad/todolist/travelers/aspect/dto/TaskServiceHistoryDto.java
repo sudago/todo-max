@@ -9,18 +9,12 @@ public class TaskServiceHistoryDto {
     private String title;
     private String from;
     private String to;
-    private Long taskId;
-    private Long fromId;
-    private Long toId;
 
     private TaskServiceHistoryDto(Builder builder) {
         this.actionType = builder.actionType;
         this.title = builder.title;
         this.from = builder.from;
         this.to = builder.to;
-        this.taskId = builder.taskId;
-        this.fromId = builder.fromId;
-        this.toId = builder.toId;
     }
 
     public History toEntity() {
@@ -33,16 +27,7 @@ public class TaskServiceHistoryDto {
                 .build();
     }
 
-    public static TaskServiceHistoryDto of(TaskServiceHistoryDto originalDto, ActionType actionType,
-                                           String fromName) {
-        return TaskServiceHistoryDto.builder()
-                .title(originalDto.getTitle())
-                .from(fromName)
-                .actionType(actionType)
-                .build();
-    }
-
-    public static TaskServiceHistoryDto of(Task task, ActionType actionType, String fromName, String toName) {
+    public static TaskServiceHistoryDto of(Task task, String fromName, String toName, ActionType actionType) {
         return TaskServiceHistoryDto.builder()
                 .title(task.getTitle())
                 .from(fromName)
@@ -51,7 +36,7 @@ public class TaskServiceHistoryDto {
                 .build();
     }
 
-    public static TaskServiceHistoryDto of(Task task, ActionType actionType, String fromName) {
+    public static TaskServiceHistoryDto of(Task task, String fromName, ActionType actionType) {
         return TaskServiceHistoryDto.builder()
                 .title(task.getTitle())
                 .from(fromName)
@@ -66,34 +51,6 @@ public class TaskServiceHistoryDto {
                 .build();
     }
 
-    public ActionType getActionType() {
-        return actionType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public Long getFromId() {
-        return fromId;
-    }
-
-    public Long getToId() {
-        return toId;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
@@ -101,11 +58,8 @@ public class TaskServiceHistoryDto {
     public static class Builder {
         private ActionType actionType;
         private String title;
-        private Long taskId;
         private String from;
         private String to;
-        private Long fromId;
-        private Long toId;
 
         public Builder actionType(ActionType actionType) {
             this.actionType = actionType;
@@ -117,11 +71,6 @@ public class TaskServiceHistoryDto {
             return this;
         }
 
-        public Builder taskId(Long taskId) {
-            this.taskId = taskId;
-            return this;
-        }
-
         public Builder from(String from) {
             this.from = from;
             return this;
@@ -129,16 +78,6 @@ public class TaskServiceHistoryDto {
 
         public Builder to(String to) {
             this.to = to;
-            return this;
-        }
-
-        public Builder fromId(Long fromId) {
-            this.fromId = fromId;
-            return this;
-        }
-
-        public Builder toId(Long toId) {
-            this.toId = toId;
             return this;
         }
 

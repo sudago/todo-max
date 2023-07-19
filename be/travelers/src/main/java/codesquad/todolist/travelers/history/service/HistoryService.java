@@ -37,39 +37,43 @@ public class HistoryService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public void saveHistory(TaskServiceHistoryDto taskServiceHistoryDto, ActionType actionType) {
-        Long taskId = taskServiceHistoryDto.getTaskId();
+    public void saveActionCreateHistory(Long taskId, ActionType actionType) {
+        Task task = taskRepository.findByIgnoringDeleted(taskId);
+        String fromName = processRepository.findProcessNameBy(task.getProcessId());
+        TaskServiceHistoryDto taskServiceHistoryDto = TaskServiceHistoryDto.of(task, fromName, actionType);
 
-        TaskServiceHistoryDto updatedTaskServiceHistoryDto = null;
+        saveHistory(taskServiceHistoryDto);
+    }
+    
+    public void saveActionMoveHistory(Long taskId, String fromName, ActionType actionType) {
+        Task task = taskRepository.findByIgnoringDeleted(taskId);
+        String toName = processRepository.findProcessNameBy(task.getProcessId());
+        TaskServiceHistoryDto taskServiceHistoryDto = TaskServiceHistoryDto.of(task, fromName, toName, actionType);
 
-        String fromName;
-        String toName;
-        //카드 등록할때 taskId가 null 이라 분기처리해야함
-        Task task = null;
-        if (taskId != null) {
-            task = taskRepository.findBy(taskId);
-        }
+        saveHistory(taskServiceHistoryDto);
+    }
 
+    public void saveActionDeleteAndUpdateHistory(Long taskId, ActionType actionType) {
+        Task task = taskRepository.findByIgnoringDeleted(taskId);
+
+        TaskServiceHistoryDto taskServiceHistoryDto = null;
         switch (actionType) {
-            case CREATE_TASK:
-                fromName = processRepository.findProcessNameBy(taskServiceHistoryDto.getFromId());
-                updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(taskServiceHistoryDto, actionType, fromName);
-                break;
             case DELETE_TASK:
-                fromName = processRepository.findProcessNameBy(task.getProcessId());
-                updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType, fromName);
-                break;
-            case MOVE_TASK:
-                fromName = processRepository.findProcessNameBy(task.getProcessId());
-                toName = processRepository.findProcessNameBy(taskServiceHistoryDto.getToId());
-                updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType, fromName, toName);
+                String fromName = processRepository.findProcessNameBy(task.getProcessId());
+                taskServiceHistoryDto = TaskServiceHistoryDto.of(task, fromName, actionType);
                 break;
             case UPDATE_TASK:
-                updatedTaskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType);
+                taskServiceHistoryDto = TaskServiceHistoryDto.of(task, actionType);
                 break;
         }
 
-        History history = updatedTaskServiceHistoryDto.toEntity();
+        if (taskServiceHistoryDto != null) {
+            saveHistory(taskServiceHistoryDto);
+        }
+    }
+
+    private void saveHistory(TaskServiceHistoryDto taskServiceHistoryDto) {
+        History history = taskServiceHistoryDto.toEntity();
         historyRepository.save(history).orElseThrow(() -> new CustomException(ErrorCode.FAIL_HISTORY_CREATE));
     }
 }
