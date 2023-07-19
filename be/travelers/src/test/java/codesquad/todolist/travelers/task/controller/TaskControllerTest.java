@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import codesquad.todolist.travelers.annotation.ControllerTest;
 import codesquad.todolist.travelers.process.domain.entity.Process;
-import codesquad.todolist.travelers.task.domain.dto.request.TaskProcessIdRequestDto;
+import codesquad.todolist.travelers.task.domain.dto.request.TaskMoveRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto;
@@ -181,7 +181,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.message").value("카드 이동 성공"));
     }
 
-    private TaskProcessIdRequestDto dummyTaskProcessIdRequestDto() {
-        return new TaskProcessIdRequestDto(1L);
+    private TaskMoveRequestDto dummyTaskProcessIdRequestDto() {
+        return new TaskMoveRequestDto(1L);
     }
 }

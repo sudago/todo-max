@@ -1,7 +1,6 @@
 package codesquad.todolist.travelers.task.domain.dto.request;
 
 import codesquad.todolist.travelers.task.domain.entity.Task;
-import java.time.LocalDateTime;
 import javax.validation.constraints.Size;
 
 public class TaskRequestDto {
@@ -22,8 +21,9 @@ public class TaskRequestDto {
         this.processId = processId;
     }
 
-    public static Task toEntity(TaskRequestDto taskRequestDto) {
-        return new Task(null, taskRequestDto.getTitle(), taskRequestDto.getContents(), taskRequestDto.getPlatform(), null, taskRequestDto.getProcessId());
+    public static Task toEntity(TaskRequestDto taskRequestDto, double position) {
+        return new Task(null, taskRequestDto.getTitle(), taskRequestDto.getContents(), taskRequestDto.getPlatform(),
+                taskRequestDto.getProcessId(), position);
     }
 
     public String getTitle() {
