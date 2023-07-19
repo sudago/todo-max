@@ -1,5 +1,6 @@
 package codesquad.todolist.travelers.task.controller;
 
+import static codesquad.todolist.travelers.global.SuccessCode.TASK_SUCCESS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -19,7 +20,6 @@ import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessRespo
 import codesquad.todolist.travelers.task.domain.entity.Task;
 import codesquad.todolist.travelers.task.service.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,7 @@ class TaskControllerTest {
         //then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(200))
+                .andExpect(jsonPath("$.statusCode").value(TASK_SUCCESS.getCustomStatus()))
                 .andExpect(jsonPath("$.message[0].processId").value(1))
                 .andExpect(jsonPath("$.message[0].name").value("해야할 일"))
                 .andExpect(jsonPath("$.message[0].tasks[0].taskId").value(1));
@@ -72,7 +72,7 @@ class TaskControllerTest {
     }
 
     private Task dummyTask() {
-        return new Task(1L, "제목입니다", "내용입니다", "web", LocalDateTime.now(), 1L);
+        return new Task(1L, "제목입니다", "내용입니다", "web", 1L, 0);
     }
 
     private TaskRequestDto dummyTaskRequestDto() {
@@ -102,7 +102,7 @@ class TaskControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(200))
+                .andExpect(jsonPath("$.statusCode").value(TASK_SUCCESS.getCustomStatus()))
                 .andExpect(jsonPath("$.message.taskId").value(1))
                 .andExpect(jsonPath("$.message.processId").value(1))
                 .andExpect(jsonPath("$.message.title").value("제목입니다"))
@@ -126,8 +126,8 @@ class TaskControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(200))
-                .andExpect(jsonPath("$.message").value("카드 삭제 성공"));
+                .andExpect(jsonPath("$.statusCode").value(TASK_SUCCESS.getCustomStatus()))
+                .andExpect(jsonPath("$.message").value(TASK_SUCCESS.getMessage()));
 
     }
 
@@ -151,8 +151,8 @@ class TaskControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(200))
-                .andExpect(jsonPath("$.message").value("카드 수정 성공"));
+                .andExpect(jsonPath("$.statusCode").value(TASK_SUCCESS.getCustomStatus()))
+                .andExpect(jsonPath("$.message").value(TASK_SUCCESS.getMessage()));
     }
 
     private TaskUpdateRequestDto dummyTaskUpdateRequestDto() {
@@ -177,8 +177,8 @@ class TaskControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(200))
-                .andExpect(jsonPath("$.message").value("카드 이동 성공"));
+                .andExpect(jsonPath("$.statusCode").value(TASK_SUCCESS.getCustomStatus()))
+                .andExpect(jsonPath("$.message").value(TASK_SUCCESS.getMessage()));
     }
 
     private TaskMoveRequestDto dummyTaskProcessIdRequestDto() {

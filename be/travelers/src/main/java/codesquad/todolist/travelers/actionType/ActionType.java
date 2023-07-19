@@ -1,4 +1,4 @@
-package codesquad.todolist.travelers.ActionType;
+package codesquad.todolist.travelers.actionType;
 
 public enum ActionType {
     MOVE_TASK(1L),
