@@ -8,6 +8,7 @@
 # 📜 TODO 리스트 프로젝트
 - 2023 코드스쿼드 마스터즈 Max에서 진행한 "TODO 리스트"를 구현하는 그룹 프로젝트
 - 미션 기간: `2023-07-10 ~ 2023-07-21`
+- <a href="https://github.com/masters2023-2nd-project-traveler/todo-max/wiki"><img src="https://img.shields.io/badge/Todo-black?logo=Wikipedia"></a>
 
 <br/>
 
