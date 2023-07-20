@@ -1,16 +1,18 @@
 package codesquad.todolist.travelers.task.service;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import codesquad.todolist.travelers.annotation.ServiceTest;
+import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.process.domain.entity.Process;
-import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
+import codesquad.todolist.travelers.process.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Task;
-import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
+import codesquad.todolist.travelers.task.repository.TaskRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +46,17 @@ class TaskServiceTest {
 
         //then
         Assertions.assertThat(1L).isEqualTo(dummyTask().getTaskId());
+    }
+
+    // 등록 예외 테스트
+    @Test
+    @DisplayName("할 일 저장에 실패하면 CustomException이 발생한다.")
+    void createTaskSuccessThrowsCustomException() {
+        // given
+        given(taskRepository.save(any())).willReturn(Optional.empty());
+
+        // then
+        assertThatThrownBy(() -> taskService.createTask(dummyTaskRequestDto())).isInstanceOf(CustomException.class);
     }
 
     private Task dummyTask() {
