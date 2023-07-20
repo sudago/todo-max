@@ -64,7 +64,7 @@ class HistoryControllerTest {
                 .andExpect(jsonPath("$.message[0].to").value("해야할 일"))
                 .andExpect(jsonPath("$.message[0].action").value("이동"))
                 .andExpect(jsonPath("$.message[0].userName").value("anonymous"))
-                .andExpect(jsonPath("$.message[0].imageURL").value("image.jpeg"));
+                .andExpect(jsonPath("$.message[0].imageUrl").value("image.jpeg"));
     }
 
     private List<ActionHistoryResponseDto> dummyActionHistoryResponseDtoList() {

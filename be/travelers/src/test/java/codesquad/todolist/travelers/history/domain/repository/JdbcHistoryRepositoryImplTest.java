@@ -47,7 +47,7 @@ class JdbcHistoryRepositoryImplTest {
         Assertions.assertThat(actual)
                 .usingRecursiveComparison()
                 .ignoringFields("createdTime")
-                .ignoringFields("imageURL")
+                .ignoringFields("imageUrl")
                 .isEqualTo(dummyActionHistoryList());
     }
 
