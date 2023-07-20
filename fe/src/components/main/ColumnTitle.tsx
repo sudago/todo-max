@@ -8,7 +8,7 @@ type ColumnTitleProps = {
   title: string;
   numberOfTasks: number;
   onAddClick?: () => void;
-  onTitleChange: (e, processId: number) => void;
+  onTitleChange: (newName: string, processId: number) => void;
   processId: number;
   onColumnDelete: (processId: number) => void;
 };
@@ -36,20 +36,25 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
   const handleEditTitle = () => {
     setIsEditing((prev) => !prev);
   };
-  const handleTitleChange = (e) => {
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
   };
 
-  const handleBlur = (e) => {
-    if (e.target.value.length === 0) return;
-    handleSubmit(e, processId);
+  const handleBlur = () => {
+    if (newTitle.length === 0) return;
+    handleSubmit(processId);
   };
 
-  const handleSubmit = async (e, processId: number) => {
-    console.log('해당 Process ID: ', processId);
-    console.log('Submitted 컬럼 title: ', newTitle);
+  const handleClose = () => {
+    setIsVisible((prevVisible) => !prevVisible);
+  };
 
-    const response = await fetch(`/process/${processId}`, {
+  const handleSubmit = async (processId: number) => {
+    // console.log('해당 Process ID: ', processId);
+    // console.log('Submitted 컬럼 title: ', newTitle);
+
+    const response = await fetch(`/api/process/${processId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -63,25 +68,20 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
 
     console.log(responseData);
     setIsEditing((prev) => !prev);
-    onTitleChange(e, processId);
+    onTitleChange(newTitle, processId);
   };
 
   const handleDelete = async () => {
-    console.log('삭제~');
-    const response = await fetch(`/process/${processId}`, {
+    const response = await fetch(`/api/process/${processId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const responseData = await response.json();
-    console.log(responseData);
+    // const responseData = await response.json();
+    // console.log(responseData);
 
     onColumnDelete(processId);
-    setIsVisible((prevVisible) => !prevVisible);
-  };
-
-  const handleClose = () => {
     setIsVisible((prevVisible) => !prevVisible);
   };
 

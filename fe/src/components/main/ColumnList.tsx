@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ColumnItem } from './ColumnItem';
 import { FloatingActionBtn } from './FloatingAction';
@@ -21,15 +21,12 @@ type AddTaskType = TaskType & { processId: number };
 type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnList = () => {
-
-  const horizontalScrollRef = useRef(null);
+  const horizontalScrollRef = useRef<HTMLDivElement | null>(null);
   const { todoListData, setTodoListData } = useData();
-  // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
-
 
   useEffect(() => {
     const fetchTodoList = async () => {
-      const response = await fetch('/todolist');
+      const response = await fetch('/api/todolist');
       const todoData = await response.json();
       setTodoListData(todoData.message);
     };
@@ -37,93 +34,93 @@ export const ColumnList = () => {
   }, []);
 
   const handleNewTask = (newTask: AddTaskType) => {
-    setTodoListData((prevData) => {
-      if (!prevData) return null;
+    if (!todoListData) return;
 
-      return prevData.map((item) =>
-        item.processId === newTask.processId
-          ? { ...item, tasks: [newTask, ...item.tasks] }
-          : item,
-      );
-    });
+    const updatedData = todoListData.map((item) =>
+      item.processId === newTask.processId
+        ? { ...item, tasks: [newTask, ...item.tasks] }
+        : item,
+    );
+
+    setTodoListData(updatedData);
   };
 
   const handleTaskDelete = (taskId: number) => {
-    setTodoListData((prevData) => {
-      if (!prevData) return null;
+    if (!todoListData) return;
 
-      return prevData.map((item) =>
-        item.tasks.some((task) => task.taskId === taskId)
-          ? {
-              ...item,
-              tasks: item.tasks.filter((task) => task.taskId !== taskId),
-            }
-          : item,
-      );
-    });
+    const updatedData = todoListData.map((item) =>
+      item.tasks.some((task) => task.taskId === taskId)
+        ? {
+            ...item,
+            tasks: item.tasks.filter((task) => task.taskId !== taskId),
+          }
+        : item,
+    );
+
+    setTodoListData(updatedData);
   };
 
+  const handleTitleChange = (newName: string, processId: number) => {
+    if (!todoListData) return;
 
-  const handleTitleChange = (e, processId) => {
-    const newName = e.target.value;
-    setTodoListData(
-      (prevData) =>
-        prevData &&
-        prevData.map((item) =>
-          item.processId === processId ? { ...item, name: newName } : item,
-        ),
+    const updatedData = todoListData.map((item) =>
+      item.processId === processId ? { ...item, name: newName } : item,
     );
+
+    setTodoListData(updatedData);
   };
 
   const handleNewColumn = () => {
-    setTodoListData((prevData) => {
-      if (!prevData) return null;
+    if (!todoListData) return;
 
-      const newProcessId =
-        Math.max(...prevData.map((item) => item.processId)) + 1;
+    const newProcessId =
+      Math.max(...todoListData.map((item) => item.processId)) + 1;
 
-      return [
-        ...prevData,
-        {
-          processId: newProcessId,
-          name: '새 리스트',
-          tasks: [],
-        },
-      ];
-    });
+    const updatedData = [
+      ...todoListData,
+      {
+        processId: newProcessId,
+        name: '새 리스트',
+        tasks: [],
+      },
+    ];
+
+    setTodoListData(updatedData);
   };
 
   const handleColumnDelete = (processId: number) => {
-    setTodoListData((prevData) => {
-      if (!prevData) return null;
+    if (!todoListData) return;
 
-      return prevData.filter((item) => item.processId !== processId);
-    });
-  };
+    const updatedData = todoListData.filter(
+      (item) => item.processId !== processId,
+    );
 
-  const scrollHorizontally = (e) => {
-    if (horizontalScrollRef.current) {
-      horizontalScrollRef.current.scrollLeft += e.deltaY;
-    }
+    setTodoListData(updatedData);
   };
 
   const handleTaskEdit = (editedTask: EditTaskType) => {
-    setTodoListData((prevData) => {
-      if (!prevData) return null;
+    if (!todoListData) return;
 
-      return prevData.map((item) =>
-        item.tasks.some((task) => task.taskId === editedTask.taskId)
-          ? {
-              ...item,
-              tasks: item.tasks.map((task) =>
-                task.taskId === editedTask.taskId
-                  ? { ...task, ...editedTask }
-                  : task,
-              ),
-            }
-          : item,
-      );
-    });
+    const updatedData = todoListData.map((item) =>
+      item.tasks.some((task) => task.taskId === editedTask.taskId)
+        ? {
+            ...item,
+            tasks: item.tasks.map((task) =>
+              task.taskId === editedTask.taskId
+                ? { ...task, ...editedTask }
+                : task,
+            ),
+          }
+        : item,
+    );
+
+    setTodoListData(updatedData);
+  };
+
+  const scrollHorizontally = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.scrollLeft += e.deltaY;
+    }
   };
 
   if (todoListData === null) {
@@ -141,12 +138,9 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
-
             onTitleChange={handleTitleChange}
             onColumnDelete={handleColumnDelete}
-
             onTaskEdit={handleTaskEdit}
-
           />
         ))}
       </ColumnLayout>

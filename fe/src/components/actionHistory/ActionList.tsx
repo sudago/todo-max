@@ -13,7 +13,7 @@ type History = {
   action: string;
   createdTime: string;
   userName: string;
-  imageUrl?: string;
+  imageUrl: string;
 };
 
 export const ActionList = () => {
@@ -22,9 +22,8 @@ export const ActionList = () => {
   const { todoListData } = useData();
 
   const fetchInitialData = async () => {
-    const response = await fetch('/history');
+    const response = await fetch('/api/history');
     const data = await response.json();
-    console.log(data);
     setHistoryData(data.message);
   };
 
@@ -43,8 +42,7 @@ export const ActionList = () => {
   };
 
   const handleDelete = async () => {
-    console.log('삭제~');
-    const response = await fetch('/history', {
+    const response = await fetch('/api/history', {
       method: 'DELETE',
     });
     if (!response.ok) {

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import UserImage from '../../assets/user_Image.svg';
 
 type ActionListItemProps = {
   title: string;
@@ -8,7 +7,7 @@ type ActionListItemProps = {
   action: string;
   createdTime: string;
   userName: string;
-  imageUrl?: string;
+  imageUrl: string;
 };
 
 function formatTimeDifference(dateTimeStr: string): string {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card/Card';
 import { Modal } from '../modal/Modal';
@@ -36,10 +36,9 @@ export const CardList: React.FC<CardProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
-  const [taskList, setTaskList] = useState<TaskType[]>(tasks);
   const verticalScrollRef = useRef(null);
 
-  const scrollVertically = (e) => {
+  const scrollVertically = (e: React.WheelEvent<HTMLDivElement>) => {
     // scrollHeight이 clientHeight보다 크면 스크롤 돼야함
     // 이 경우에만 세로 스크롤 고
     if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
@@ -47,14 +46,13 @@ export const CardList: React.FC<CardProps> = ({
     }
   };
 
-
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
     setCurrentTaskId(taskId);
   };
 
   const deleteHandler = async (taskId: number) => {
-    const response = await fetch(`/task/${taskId}`, {
+    const response = await fetch(`/api/task/${taskId}`, {
       method: 'DELETE',
     });
     const data = await response.json();
@@ -69,7 +67,7 @@ export const CardList: React.FC<CardProps> = ({
     title: string,
     body: string,
   ) => {
-    const response = await fetch(`/task/${taskId}`, {
+    const response = await fetch(`/api/task/${taskId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -82,8 +80,8 @@ export const CardList: React.FC<CardProps> = ({
       return;
     }
 
-    const updatedTask = await response.json();
-    console.log('Updated task:', updatedTask);
+    // const updatedTask = await response.json();
+    // console.log('Updated task:', updatedTask);
     onTaskEdit({ taskId, title, contents: body });
   };
 
