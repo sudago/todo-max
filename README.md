@@ -89,10 +89,15 @@
 ## 🗂️ WIKI 문서
 ### 🤝 협업 전략
 - [그라운드 룰](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0)
+- [스크럼](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/%EC%8A%A4%ED%81%AC%EB%9F%BC)
 - [커밋 컨밴션](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B0%B4%EC%85%98)
 - [브랜치 전략](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%A0%84%EB%9E%B5)
-
+- [참고 링크](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC)
 
 ### 💾 DB
 - [ERD](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/ERD)
 - [Scheme](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/Scheme)
+
+### 📓 API
+- [Postman](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/Postman)
+- [Swagger](https://github.com/masters2023-2nd-project-traveler/todo-max/wiki/Swagger)
