@@ -4,7 +4,7 @@ import codesquad.todolist.travelers.actionType.ActionType;
 import codesquad.todolist.travelers.annotation.ActionId;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.global.ErrorCode;
-import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
+import codesquad.todolist.travelers.process.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskMoveRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskUpdateRequestDto;
@@ -12,7 +12,7 @@ import codesquad.todolist.travelers.task.domain.dto.response.TaskPostResponseDto
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Task;
-import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
+import codesquad.todolist.travelers.task.repository.TaskRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;

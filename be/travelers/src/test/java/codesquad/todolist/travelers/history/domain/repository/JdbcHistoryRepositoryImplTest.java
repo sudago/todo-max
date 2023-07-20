@@ -1,8 +1,9 @@
 package codesquad.todolist.travelers.history.domain.repository;
 
 import codesquad.todolist.travelers.annotation.RepositoryTest;
-import codesquad.todolist.travelers.history.domain.ActionHistory;
 import codesquad.todolist.travelers.history.domain.entity.History;
+import codesquad.todolist.travelers.history.domain.vo.ActionHistory;
+import codesquad.todolist.travelers.history.repository.JdbcHistoryRepositoryImpl;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;

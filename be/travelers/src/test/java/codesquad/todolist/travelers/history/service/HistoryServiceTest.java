@@ -4,7 +4,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 import codesquad.todolist.travelers.annotation.ServiceTest;
-import codesquad.todolist.travelers.history.domain.repository.HistoryRepository;
+import codesquad.todolist.travelers.history.repository.HistoryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

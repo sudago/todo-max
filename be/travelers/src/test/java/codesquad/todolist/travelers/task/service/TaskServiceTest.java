@@ -5,12 +5,12 @@ import static org.mockito.BDDMockito.given;
 
 import codesquad.todolist.travelers.annotation.ServiceTest;
 import codesquad.todolist.travelers.process.domain.entity.Process;
-import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
+import codesquad.todolist.travelers.process.repository.ProcessRepository;
 import codesquad.todolist.travelers.task.domain.dto.request.TaskRequestDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TaskResponseDto;
 import codesquad.todolist.travelers.task.domain.dto.response.TasksByProcessResponseDto;
 import codesquad.todolist.travelers.task.domain.entity.Task;
-import codesquad.todolist.travelers.task.domain.repository.TaskRepository;
+import codesquad.todolist.travelers.task.repository.TaskRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

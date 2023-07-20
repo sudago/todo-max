@@ -2,6 +2,7 @@ package codesquad.todolist.travelers.task.domain.repository;
 
 import codesquad.todolist.travelers.annotation.RepositoryTest;
 import codesquad.todolist.travelers.task.domain.entity.Task;
+import codesquad.todolist.travelers.task.repository.JdbcTaskRepositoryImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
