@@ -6,7 +6,7 @@ import static codesquad.todolist.travelers.global.ErrorCode.NOT_EXIST_PROCESS;
 import codesquad.todolist.travelers.global.CustomException;
 import codesquad.todolist.travelers.process.domain.dto.ProcessRequestDto;
 import codesquad.todolist.travelers.process.domain.entity.Process;
-import codesquad.todolist.travelers.process.domain.repository.ProcessRepository;
+import codesquad.todolist.travelers.process.repository.ProcessRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
