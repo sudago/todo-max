@@ -48,7 +48,6 @@
 ![](https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white)
 ![](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white)
 ![](https://img.shields.io/badge/Amazon_AWS-232F3E?style=flat&logo=amazonaws)
-![](https://img.shields.io/badge/GitActions-2088FF?style=flat&logo=githubactions&logoColor=white)
 
 - Java: `JDK 11`
 - SpringBoot: `ver. 2.7.13`
