@@ -51,7 +51,6 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         onTitleChange={onTitleChange}
         processId={processId}
         onColumnDelete={onColumnDelete}
-
       />
 
       <CardList
