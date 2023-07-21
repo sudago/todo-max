@@ -20,9 +20,9 @@ public class ProcessService {
         this.processRepository = processRepository;
     }
 
-    public void saveProcess(ProcessRequestDto processRequestDto) {
+    public Long saveProcess(ProcessRequestDto processRequestDto) {
         Process process = ProcessRequestDto.toEntity(processRequestDto);
-        processRepository.createProcess(process).orElseThrow(
+        return processRepository.createProcess(process).orElseThrow(
                 () -> new CustomException(FAIL_PROCESS_CREATE));
     }
 
