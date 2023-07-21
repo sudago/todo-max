@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HistoryService {
     private final HistoryRepository historyRepository;
+
     private final TaskRepository taskRepository;
     private final ProcessRepository processRepository;
 

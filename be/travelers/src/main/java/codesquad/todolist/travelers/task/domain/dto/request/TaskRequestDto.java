@@ -41,6 +41,4 @@ public class TaskRequestDto {
     public String getPlatform() {
         return platform;
     }
-
-
 }

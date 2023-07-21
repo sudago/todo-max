@@ -39,7 +39,7 @@ class HistoryServiceTest {
 
     @Mock
     ProcessRepository processRepository;
-
+  
     @Test
     @DisplayName("deleteAllHistory 메서드를 통해 deleteAll 메서드를 호출할수 있다.")
     void deleteAllHistorySuccessTest() {
