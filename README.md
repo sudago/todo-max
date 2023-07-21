@@ -1,7 +1,6 @@
 
 ![](https://img.shields.io/badge/Last_Upadate-2023--07--20-blue)
 ![](https://img.shields.io/badge/Sprint-2-green)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2F%2Fcodesquad-gwanaksan%2Fkiosk-max%2Fbadge%3Fref%3Ddev&style=flat)](https://actions-badge.atrox.dev//codesquad-gwanaksan/kiosk-max/goto?ref=dev)
 
 <br/>
 

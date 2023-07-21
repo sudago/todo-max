@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: travelers
+    password: travelers1234
+    url: jdbc:mysql://travelers-database.c8jhap1qagso.ap-northeast-2.rds.amazonaws.com:3306/todolist?serverTimezone=Asia/Seoul &useLegacyDatetimeCode=false
