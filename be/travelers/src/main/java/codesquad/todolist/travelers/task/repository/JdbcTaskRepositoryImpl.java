@@ -96,6 +96,12 @@ public class JdbcTaskRepositoryImpl implements TaskRepository {
         return template.queryForObject(sql, Map.of("taskId", taskId), Long.class);
     }
 
+    @Override
+    public void deleteByProcessId(final Long processId) {
+        String sql = "UPDATE task SET is_deleted = 1 WHERE process_id = :processId";
+        template.update(sql, Map.of("processId", processId));
+    }
+
     private RowMapper<Task> taskRowMapper() {
         return ((rs, rowNum) -> new Task(
                 rs.getLong("task_id"),
