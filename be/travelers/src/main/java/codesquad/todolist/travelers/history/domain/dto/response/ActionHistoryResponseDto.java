@@ -15,6 +15,7 @@ public class ActionHistoryResponseDto {
     public ActionHistoryResponseDto(String title, String from, String to, String action, LocalDateTime createdTime,
                                     String userName,
                                     String imageUrl) {
+
         this.title = title;
         this.from = from;
         this.to = to;

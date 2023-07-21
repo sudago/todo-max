@@ -26,7 +26,6 @@ class JdbcHistoryRepositoryImplTest {
 
         //when
         repository.deleteAll();
-
         //then
         List<ActionHistory> actual = repository.findAll();
         Assertions.assertThat(actual.size()).isEqualTo(0);
@@ -82,5 +81,4 @@ class JdbcHistoryRepositoryImplTest {
     private ActionHistory dummyActionHistoryForMove() {
         return new ActionHistory("블로그에 포스팅할 것", "하고있는 일", "해야할 일", "이동", LocalDateTime.now(), "anonymous", "");
     }
-
 }
