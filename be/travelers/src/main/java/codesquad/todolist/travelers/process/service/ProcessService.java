@@ -23,9 +23,9 @@ public class ProcessService {
         this.taskRepository = taskRepository;
     }
 
-    public void saveProcess(ProcessRequestDto processRequestDto) {
+    public Long saveProcess(ProcessRequestDto processRequestDto) {
         Process process = ProcessRequestDto.toEntity(processRequestDto);
-        processRepository.createProcess(process).orElseThrow(
+        return processRepository.createProcess(process).orElseThrow(
                 () -> new CustomException(FAIL_PROCESS_CREATE));
     }
 
@@ -37,7 +37,7 @@ public class ProcessService {
 
     public void deleteProcess(Long processId) {
         taskRepository.deleteByProcessId(processId);
-        
+
         processRepository.findProcessById(processId).orElseThrow(
                 () -> new CustomException(NOT_EXIST_PROCESS));
         processRepository.deleteProcess(processId);
