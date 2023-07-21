@@ -23,6 +23,7 @@ type ColumnItemProps = {
 type AddTaskType = TaskType & { processId: number };
 type EditTaskType = { taskId: number; title: string; contents: string };
 
+
 export const ColumnItem: React.FC<ColumnItemProps> = ({
   processId,
   title,
@@ -33,6 +34,7 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
   onColumnDelete,
   onTaskEdit,
 }) => {
+
   const numberOfTasks = tasks.length;
   const [isAddMode, setIsAddMode] = useState(false);
 
@@ -49,6 +51,7 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         onTitleChange={onTitleChange}
         processId={processId}
         onColumnDelete={onColumnDelete}
+
       />
 
       <CardList

@@ -38,6 +38,7 @@ export const Card: React.FC<CardProps> = ({
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
+
   useEffect(() => {
     if (textAreaRef.current) {
       textAreaRef.current.style.height = 'auto';

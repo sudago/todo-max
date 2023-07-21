@@ -112,5 +112,3 @@ export const GlobalStyles = createGlobalStyle`
     overflow-y: hidden;
   };
 `;
-
-// export default GlobalStyles;

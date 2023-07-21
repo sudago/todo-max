@@ -31,6 +31,7 @@ export const ActionList = () => {
     fetchInitialData();
   }, [todoListData]);
 
+
   if (historyData === null) {
     return <div>Loading...</div>;
   }

@@ -24,6 +24,7 @@ type CardProps = {
 type AddTaskType = TaskType & { processId: number };
 type EditTaskType = { taskId: number; title: string; contents: string };
 
+
 export const CardList: React.FC<CardProps> = ({
   tasks,
   isAddMode,
@@ -39,12 +40,11 @@ export const CardList: React.FC<CardProps> = ({
   const verticalScrollRef = useRef(null);
 
   const scrollVertically = (e: React.WheelEvent<HTMLDivElement>) => {
-    // scrollHeight이 clientHeight보다 크면 스크롤 돼야함
-    // 이 경우에만 세로 스크롤 고
     if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
       e.stopPropagation();
     }
   };
+
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -134,8 +134,6 @@ export const CardListLayout = styled.div`
   gap: 10px;
   height: 100%;
   overflow-y: auto;
-  // overscroll-behavior: contain;
-
   ::-webkit-scrollbar {
     display: none;
   }

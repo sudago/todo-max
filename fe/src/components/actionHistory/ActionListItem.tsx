@@ -10,6 +10,7 @@ type ActionListItemProps = {
   imageUrl: string;
 };
 
+
 function formatTimeDifference(dateTimeStr: string): string {
   const inputDate = new Date(dateTimeStr);
   const diffInMinutes = Math.floor(
@@ -63,6 +64,7 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
               <span>으로 </span>
             </>
           )}
+
           <span className="bold">{action}</span>
           하였습니다.
         </span>
